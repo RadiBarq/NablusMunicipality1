@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hfad.nablusmunicipality1">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Contact"
+            android:label="@string/title_activity_contact"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".About"
+            android:label="@string/title_activity_about"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Login"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".WaterCycle"
+            android:label="@string/title_activity_water_cycle"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Questions"
+            android:label="@string/title_activity_questions"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Reports"
+            android:icon="@drawable/logo29"
+            android:label="البلاغات"
+            android:theme="@style/MyCustomTheme" />
+        <activity
+            android:name=".Order"
+            android:label="@string/title_activity_order"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Report"
+            android:label="@string/title_activity_report"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RigesterActivity"
+            android:label="@string/title_activity_rigester"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".LoginActicity"
+            android:label="@string/title_activity_login_acticity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Reports1"
+            android:label="البلاغات و الشكاوي"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".R2"
+            android:label="@string/title_activity_r2"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".R4"
+            android:label="@string/title_activity_r4"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".R5"
+            android:label="@string/title_activity_r5"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".R6"
+            android:label="@string/title_activity_r6"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".r7"
+            android:label="@string/title_activity_r7"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".R8"
+            android:label="@string/title_activity_r8"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".R9"
+            android:label="@string/title_activity_r9"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DisplayImage"
+            android:label="@string/title_activity_display_image"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Test"
+            android:label="@string/title_activity_test"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+    </application>
+
+</manifest>
