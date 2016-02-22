@@ -17,17 +17,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="المنطقه بالتفصيل"
+        android:text="الخدمة المتعلقه بالبلاغ"
         android:id="@+id/textView3"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textColor="#4FC3F7" />
+        android:textColor="#4FC3F7"
+        android:layout_alignTop="@+id/spinner"
+        android:layout_alignRight="@+id/button5"
+        android:layout_alignEnd="@+id/button5" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="وصف التسرب"
+        android:text="وصف البلاغ"
         android:id="@+id/textView4"
         android:layout_below="@+id/textView3"
         android:layout_alignParentRight="true"
@@ -110,17 +111,29 @@
         android:layout_marginLeft="33dp"
         android:layout_marginStart="33dp" />
 
-    <EditText
+    <Button
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:maxLines="3"
-        android:id="@+id/editText"
+        android:text="اضف الموقع "
+        android:id="@+id/button5"
+        android:onClick="onClickLocation"
+        android:background="#4FC3F7"
+        android:textColor="#ffffff"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/textView5"
+        android:layout_alignStart="@+id/textView5"
+        android:layout_marginBottom="52dp" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:backgroundTint="#4FC3F7" />
+        android:entries="@array/sectionarray"
+        />
 
 
 </RelativeLayout>

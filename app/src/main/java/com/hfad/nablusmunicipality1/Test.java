@@ -102,8 +102,10 @@ private View mProgressView;
             @Override
             public void processFinish(String s) {
 
-
-                R8.report_status = s;
+                if (s.matches("1"))
+                R8.report_status = "لم ينظر به بعد";
+                else if (s.matches("2"))
+                    R8.report_status = "يتم العمل عليه";
             }
         });
         task5.execute("http://androdimysqlapp.azurewebsites.net/getOrder-5.php");

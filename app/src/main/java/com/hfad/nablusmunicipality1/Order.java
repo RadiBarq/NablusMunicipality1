@@ -1,15 +1,21 @@
 package com.hfad.nablusmunicipality1;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -19,14 +25,21 @@ import android.view.View;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.provider.BaseColumns;
 import android.widget.CursorAdapter;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.kosalgeek.asynctask.AsyncResponse;
 import com.kosalgeek.asynctask.PostResponseAsyncTask;
 
@@ -47,7 +60,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 
-public class Order extends AppCompatActivity implements AsyncResponse  {
+public class Order extends AppCompatActivity implements AsyncResponse, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener{
     public static final String EXTRA_REPORT = "reporteNo";
     public String area;
     public String description;
@@ -57,9 +70,17 @@ public class Order extends AppCompatActivity implements AsyncResponse  {
     private EditText editText3;
     private ReportsDatabaseHelper helper = new ReportsDatabaseHelper(this);
     public int likes = 0;
-    private String Report_status = "لم ينظر به بعد";
-
+    private String Report_status = "1";
+    String sLocation = "";
     public Button library_button;
+
+    // Those related to the spinner
+    Spinner spinner;
+    String selected_item = null;
+
+    // Specify the layout to use when the list of choices appears
+
+
 
     // This integers related to integers
     private int PICK_IMAGE_REQUEST = 1;
@@ -69,8 +90,12 @@ public class Order extends AppCompatActivity implements AsyncResponse  {
     private Uri filePath;
     String filname = "images";
     int random;
+    Location lastLocation;
     String reportDate;
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    //This is Related to the location
+    GoogleApiClient client;
+
 
 
     @Override
@@ -78,10 +103,27 @@ public class Order extends AppCompatActivity implements AsyncResponse  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
+        // This is related to the spinner
+        spinner = (Spinner) findViewById(R.id.spinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.sectionarray, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+
+
+
+        spinner.setOnItemSelectedListener(this);
+
+
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("بلاغ تسرب مياه");
 
-        editText1 = (EditText) findViewById(R.id.editText);
         editText2 = (EditText) findViewById(R.id.editText2);
         editText3 = (EditText) findViewById(R.id.editText3);
 
@@ -96,17 +138,16 @@ public class Order extends AppCompatActivity implements AsyncResponse  {
         Date date = new Date();
         reportDate = sdf.format(date);
 
+
     }
 
 
-    public void onClickLibraryPhoto(View view)
-    {
+    public void onClickLibraryPhoto(View view) {
         showFileChooser();
     }
 
 
-    private void showFileChooser()
-    {
+    private void showFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -115,45 +156,32 @@ public class Order extends AppCompatActivity implements AsyncResponse  {
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null)
-        {
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             filePath = data.getData();
-            try
-            {
+            try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
-            catch (IOException e)
-            {
+        } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            filePath = data.getData().normalizeScheme();
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK)
-        {
-            Bundle extras = data.getExtras();
-            bitmap = (Bitmap) extras.get("data");
-
-        }
-
-
     }
 
 
     public void onFloatButtonClicked(View view) {
-
-        area = editText1.getText().toString();
         description = editText2.getText().toString();
         phoneNumber = editText3.getText().toString();
 
-        if (area.matches("")) {
-            Context context = getApplicationContext();
-            Toast.makeText(this, "نسيت ان تضع المنطقه", Toast.LENGTH_SHORT).show();
-            return;
-        } else if (description.matches("")) {
+        if (description.matches("")) {
             Context context = getApplicationContext();
             Toast.makeText(this, "نسيت خانة الوصف", Toast.LENGTH_SHORT).show();
             return;
@@ -165,15 +193,15 @@ public class Order extends AppCompatActivity implements AsyncResponse  {
 
             ContentValues values = new ContentValues();
             /**
-            values.put("AREA", area);
-            values.put("DESCRIPTION", description);
-            values.put("IMAGE_RESOURCE_ID", phoneNumber);
-            values.put("LIKES", likes);
-            database.insert("REPORTSE", null, values);
-            Intent loginIntent = new Intent (this, Reports.class);
-            startActivity(loginIntent);
-            Context context = getApplicationContext();
-            */
+             values.put("AREA", area);
+             values.put("DESCRIPTION", description);
+             values.put("IMAGE_RESOURCE_ID", phoneNumber);
+             values.put("LIKES", likes);
+             database.insert("REPORTSE", null, values);
+             Intent loginIntent = new Intent (this, Reports.class);
+             startActivity(loginIntent);
+             Context context = getApplicationContext();
+             */
 
             String uploadImage = "NoPhoto";
             if (bitmap != null) {
@@ -181,15 +209,22 @@ public class Order extends AppCompatActivity implements AsyncResponse  {
             }
             // This realted to async
             HashMap postData = new HashMap();
-            postData.put("area", area);
+            postData.put("area", sLocation);
             postData.put("description", description);
             postData.put("phonenumber", phoneNumber);
             postData.put("counternumber", LoginActicity.COUNTER_NUMBER);
             postData.put("likes", String.valueOf(likes));
             postData.put("image", uploadImage);
+
+            // This check if the photo there is a photo or not
+            if (bitmap != null)
             postData.put("filename", String.valueOf(random) + ".jpeg");
+            else
+                postData.put("filename","");
+
             postData.put("report_status", Report_status);
-            postData.put("report_date",reportDate);
+            postData.put("report_date", reportDate);
+            postData.put("section", selected_item);
             PostResponseAsyncTask task = new PostResponseAsyncTask(this, postData);
             task.execute("http://androdimysqlapp.azurewebsites.net/addData.php");
 
@@ -203,16 +238,13 @@ public class Order extends AppCompatActivity implements AsyncResponse  {
             Intent intent = new Intent(this, Reports1.class);
             startActivity(intent);
             finish();
-        }
-
-        else {
+        } else {
             Toast.makeText(this, "يوجد خطأ في الشبكة اعد المحاوله", Toast.LENGTH_LONG).show();
         }
     }
 
 
-    public String getStringImage(Bitmap bmp)
-    {
+    public String getStringImage(Bitmap bmp) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] imageBytes = baos.toByteArray();
@@ -222,15 +254,123 @@ public class Order extends AppCompatActivity implements AsyncResponse  {
     }
 
 
-
-    public void onClickTakePhoto(View view)
-    {
+    public void onClickTakePhoto(View view) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null)
-        {
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
 
 
+    protected void onStart() {
+        super.onStart();
+    }
+
+    protected void onStop() {
+        super.onStop();
+    }
+
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        // This is can be used in the playstore in the future.
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+        }
+        lastLocation = LocationServices.FusedLocationApi.getLastLocation(client);
+        if(lastLocation != null)
+        {
+            sLocation = String.valueOf(lastLocation.getLatitude()) + " " + String.valueOf(lastLocation.getLongitude());
+            Toast.makeText(Order.this, " تم اضافة موقعك", Toast.LENGTH_LONG).show();
+            client.disconnect();
+        }
+
+        if (lastLocation == null) {
+                   Toast.makeText(Order.this, "الرجاء تشغيل خدمة الموقع من الاعدادات", Toast.LENGTH_LONG).show();
+                    client.disconnect();
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
+
+        Toast.makeText(Order.this, "الرجاء تشغيل خدمة الموقع من الاعدادات", Toast.LENGTH_LONG).show();
+
+    }
+
+    LocationListener locationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+
+        }
+
+
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+            Toast.makeText(Order.this, "الرجاء تشغيل خدمة الموقع من الاعدادات", Toast.LENGTH_LONG).show();
+        }
+
+
+        public void onItemSelected(AdapterView<?> parent, View view,
+                                   int pos, long id) {
+            // An item was selected. You can retrieve the selected item using
+            // parent.getItemAtPosition(pos)
+        }
+
+        public void onNothingSelected(AdapterView<?> parent) {
+            // Another interface callback
+        }
+
+    };
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String selected = String.valueOf(parent.getSelectedItem());
+    }
+
+    public void onClickLocation(View view)
+    {
+        if (client == null) {
+            client = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
+
+        client.connect();
+
+
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        selected_item = String.valueOf(parent.getSelectedItem());
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

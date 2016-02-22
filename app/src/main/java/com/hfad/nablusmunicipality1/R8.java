@@ -34,6 +34,7 @@ public class R8 extends AppCompatActivity implements AsyncResponse {
 
         startActivity(intent);
         report_status = s;
+
         finish();
     }
 

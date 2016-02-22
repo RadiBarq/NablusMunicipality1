@@ -23,7 +23,7 @@
     <string name="title_activity_reports1">Reports1</string>
     <string name="title_activity_r2">R2</string>
     <string name="title_activity_r3">R3</string>
-    <string name="title_activity_r4">R4</string>
+    <string name="title_activity_r4">R4</string>er
     <string name="title_activity_r5">R5</string>
     <string name="title_activity_r6">R6</string>
     <string name="title_activity_r7">r7</string>
@@ -31,5 +31,20 @@
     <string name="title_activity_r9">R9</string>
     <string name="title_activity_display_image">DisplayImage</string>
     <string name="title_activity_test">Test</string>
+
+    <string-array name = "sectionarray">
+        <item>الادارة</item>
+        <item>العامه</item>
+        <item>الهندسة</item>
+        <item>المياه و الصرف الصحي</item>
+        <item>الماليه</item>
+        <item>العلاقات العامه</item>
+        <item>الصحه و البيئه</item>
+        <item>خدمات الجمهور</item>
+        <item>اطفائية بلدية نابلس</item>
+        <item>النفايات</item>
+        <item>محكمة بلدية نابلس</item>
+        <item>المسلخ البلدي</item>
+    </string-array>
 
 </resources>

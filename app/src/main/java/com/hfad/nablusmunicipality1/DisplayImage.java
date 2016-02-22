@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -32,7 +33,7 @@ public class DisplayImage extends AppCompatActivity {
         mProgressView = findViewById(R.id.login_progress);
         showProgress(true);
 
-
+        Toast.makeText(DisplayImage.this, "جاري تحميل الصوره", Toast.LENGTH_SHORT).show();
         // Universal IMAGE LOADER SETUP
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
                 .cacheOnDisc(true).cacheInMemory(true)

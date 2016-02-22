@@ -17,6 +17,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -99,6 +101,7 @@ public class Report extends AppCompatActivity implements AsyncResponse {
     public static String image_id;
     String hey = "http://androdimysqlapp.azurewebsites.net/images/";
     String url = hey + image_id;
+
     private View mProgressView;
 
 
@@ -107,13 +110,14 @@ public class Report extends AppCompatActivity implements AsyncResponse {
         setContentView(R.layout.activity_report);
 
         mProgressView = findViewById(R.id.login_progress3);
-        showProgress(true);
+
         if (Checker == 1) {
             Toast.makeText(this, "تاكد من اتصال الشبكة", Toast.LENGTH_LONG);
             Intent intent = new Intent(this, Report.class);
             startActivity(intent);
             finish();
         }
+
 
 
         // Universal IMAGE LOADER SETUP
@@ -151,16 +155,16 @@ public class Report extends AppCompatActivity implements AsyncResponse {
         Intent i = getIntent();
         id = i.getStringExtra("id");
 
+
         ImageLoader.getInstance().init(config);
         if (Test.image_checker == 0) {
+
+            Toast.makeText(Report.this, "جاري تحميل الصوره", Toast.LENGTH_SHORT).show();
             ImageLoader imageLoader = ImageLoader.getInstance();
             imageLoader.displayImage(url, imageView, defaultOptions);
-            while (
-                    imageView == null);
-            {
 
-            }
-        } else if (Test.image_checker == 1) {
+        }
+         else if (Test.image_checker == 1) {
             imageView.setImageResource(R.drawable.iconnote);
         }
 
