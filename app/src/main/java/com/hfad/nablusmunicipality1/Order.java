@@ -98,6 +98,7 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -236,11 +237,14 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
         if (result.equals("success")) {
             Toast.makeText(this, "تم اضافة البلاغ", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, Reports1.class);
-            startActivity(intent);
             finish();
         } else {
             Toast.makeText(this, "يوجد خطأ في الشبكة اعد المحاوله", Toast.LENGTH_LONG).show();
         }
+
+
+
+
     }
 
 
