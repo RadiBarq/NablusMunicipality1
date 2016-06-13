@@ -22,7 +22,7 @@ public class Test extends AppCompatActivity{
 int counter  = 0;
 public static int image_checker = 0;
 private View mProgressView;
-    String hey = "http://androdimysqlapp.azurewebsites.net/images/";
+    String hey = "http://10.0.2.2/images/";
     String Image_id;
     String url = hey + Image_id;
     public static int likesChecker = 0;
@@ -39,6 +39,7 @@ private View mProgressView;
         postData1.put("counterNumber", LoginActicity.COUNTER_NUMBER);
         postData1.put("reportId", R5.COUNTERNUMBER);
 
+
         mProgressView = findViewById(R.id.login_progress1);
         showProgress(true);
 
@@ -49,14 +50,14 @@ private View mProgressView;
                 R2.Likes = s;
             }
         });
-        task.execute("http://androdimysqlapp.azurewebsites.net/getOrder-3.php");
+        task.execute("http://10.0.2.2/getOrder-3.php");
         PostResponseAsyncTask task1 = new PostResponseAsyncTask(this, postData, false, new AsyncResponse() {
             @Override
             public void processFinish(String s) {
                 R4.area = s;
             }
         });
-        task1.execute("http://androdimysqlapp.azurewebsites.net/getOrder.php");
+        task1.execute("http://10.0.2.2/getOrder.php");
         PostResponseAsyncTask task2 = new PostResponseAsyncTask(this, postData, false, new AsyncResponse() {
             @Override
             public void processFinish(String s) {
@@ -67,7 +68,7 @@ private View mProgressView;
                 R5.COUNTERNUMBER = s;
             }
         });
-        task2.execute("http://androdimysqlapp.azurewebsites.net/getCounter.php");
+        task2.execute("http://10.0.2.2/getCounter.php");
         PostResponseAsyncTask task3 = new PostResponseAsyncTask(this, postData1, false, new AsyncResponse() {
             @Override
             public void processFinish(String s) {
@@ -79,25 +80,26 @@ private View mProgressView;
                     likesChecker = 0;
             }
         });
-        task3.execute("http://androdimysqlapp.azurewebsites.net/checkLikes.php");
+        task3.execute("http://10.0.2.2/checkLikes.php");
         PostResponseAsyncTask task4 = new PostResponseAsyncTask(this, postData, false, new AsyncResponse() {
             @Override
             public void processFinish(String s) {
 
-                if (s.matches(""))
+                if (s.matches("NoPhoto"))
                 {
                     image_checker = 1;
 
                 }
 
                 else {
+
                     image_checker = 0;
                     Report.image_id = s;
                 }
 
             }
         });
-        task4.execute("http://androdimysqlapp.azurewebsites.net/getOrder-4.php");
+        task4.execute("http://10.0.2.2/getOrder-4.php");
         PostResponseAsyncTask task5 = new PostResponseAsyncTask(this, postData, false, new AsyncResponse() {
             @Override
             public void processFinish(String s) {
@@ -106,9 +108,14 @@ private View mProgressView;
                 R8.report_status = "لم ينظر به بعد";
                 else if (s.matches("2"))
                     R8.report_status = "يتم العمل عليه";
+                else if(s.matches("3"))
+                    R8.report_status = "تم الانتهاء من العمل على البلاغ"
+                            ;
+
+
             }
         });
-        task5.execute("http://androdimysqlapp.azurewebsites.net/getOrder-5.php");
+        task5.execute("http://10.0.2.2/getOrder-5.php");
 
         PostResponseAsyncTask task6 = new PostResponseAsyncTask(this, postData, false, new AsyncResponse() {
             @Override
@@ -122,7 +129,7 @@ private View mProgressView;
             }
         });
 
-        task6.execute("http://androdimysqlapp.azurewebsites.net/getOrder-6.php");
+        task6.execute("http://10.0.2.2/getOrder-6.php");
     }
 
 

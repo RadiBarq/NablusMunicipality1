@@ -1,8 +1,10 @@
 package com.hfad.nablusmunicipality1;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
 import android.view.View;
 
 public class MainActivity extends Activity {
@@ -19,11 +21,12 @@ public class MainActivity extends Activity {
     {
         Intent loginIntent = new Intent (this, Login.class);
         startActivity(loginIntent);
+        finish();
     }
 
     public void onClickWaterCycle(View view)
     {
-        Intent waterCycleIntent = new Intent(this, Report.class);
+        Intent waterCycleIntent = new Intent(this, WaterCycle.class);
         startActivity(waterCycleIntent);
     }
 
@@ -39,6 +42,12 @@ public class MainActivity extends Activity {
         startActivity(aboutIntent);
 
     }
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+    }
+
 
 }
 

@@ -10,8 +10,12 @@
     <string-array name="Questions_Orders">
         <item>تسجيل الدخول</item>
         <item>التسجيل</item>
+        <item>نسيت كلمة السر</item>
     </string-array>
 
+
+    <string name="open_drawer">Open drawer</string>
+    <string name="close_drawer">Close drawer</string>
 
     <string name="title_activity_questions">Questions</string>
     <string name="title_activity_reports">Reports</string>
@@ -32,11 +36,11 @@
     <string name="title_activity_display_image">DisplayImage</string>
     <string name="title_activity_test">Test</string>
 
-    <string-array name = "sectionarray">
+    <string-array name="sectionarray">
         <item>الادارة</item>
         <item>العامه</item>
         <item>الهندسة</item>
-        <item>المياه و الصرف الصحي</item>
+        <item>المياه</item>
         <item>الماليه</item>
         <item>العلاقات العامه</item>
         <item>الصحه و البيئه</item>
@@ -46,5 +50,17 @@
         <item>محكمة بلدية نابلس</item>
         <item>المسلخ البلدي</item>
     </string-array>
+
+    <string-array name="questionsarray">
+        <item>ما اسم اول شركة اشتغلت بها؟</item>
+        <item>ما الاسم الاول لافضل صديق لديك؟</item>
+        <item>ما الاسم الاول لاكبر ابن خال لديك؟</item>
+        <item>ما هو اول فيلم شاهدته في السينما</item>
+        <item>ما اسم عائلة اول استاذ</item>
+    </string-array>
+
+    <string name="title_activity_report_areport">ReportAReport</string>
+    <string name="title_activity_accounts">Accounts</string>
+    <string name="title_activity_forget_password">ForgetPassword</string>
 
 </resources>

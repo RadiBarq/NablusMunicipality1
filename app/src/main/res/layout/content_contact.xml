@@ -11,59 +11,57 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.hfad.nablusmunicipality1.Contact"
     tools:showIn="@layout/activity_contact"
-    android:background="@drawable/back10"
+    android:background="@drawable/water7"
     >
-
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:id="@+id/imageView3"
-        android:src="@drawable/logo1"
-        android:layout_alignBottom="@+id/imageButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="82dp"
-        />
 
     <ImageButton
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:id="@+id/imageButton"
         android:src="@drawable/facebook"
-        android:layout_marginTop="113dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/imageButton2"
-        android:layout_alignStart="@+id/imageButton2"
         android:onClick="onClickFacebook"
         android:clickable="true"
         android:autoLink="web"
-        />
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/imageView3"
+        android:layout_alignStart="@+id/imageView3" />
 
     <ImageButton
         android:layout_width="75dp"
         android:layout_height="50dp"
         android:id="@+id/imageButton2"
         android:src="@drawable/youtube1"
-        android:layout_below="@+id/imageButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="82dp"
         android:onClick="onClickYoutube"
         android:clickable="true"
         android:autoLink = "web"
-        />
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <ImageButton
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:id="@+id/imageView4"
-        android:src="@drawable/internet"
-        android:layout_below="@+id/imageButton2"
-        android:layout_alignRight="@+id/imageButton2"
-        android:layout_alignEnd="@+id/imageButton2"
-        android:layout_marginTop="82dp"
+        android:src="@drawable/web9"
         android:clickable="true"
         android:autoLink = "web"
+        android:background="@null"
         android:onClick="onClickWebsite"
-        />
+        android:adjustViewBounds="false"
+
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView3"
+        android:src="@drawable/contact"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/imageButton2"
+        android:layout_alignEnd="@+id/imageButton2" />
 
 
 </RelativeLayout>

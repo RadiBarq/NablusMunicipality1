@@ -10,7 +10,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.hfad.nablusmunicipality1.Order"
-    tools:showIn="@layout/activity_order">
+    tools:showIn="@layout/activity_order"
+    android:background="@drawable/blue"
+    >
 
 
     <TextView
@@ -40,13 +42,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
-        android:maxLines="3"
         android:ems="10"
         android:id="@+id/editText2"
         android:layout_alignTop="@+id/textView4"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:backgroundTint="#4FC3F7" />
+        android:backgroundTint="#4FC3F7"
+        android:maxLines="3"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -54,11 +57,11 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="رقم الهاتف"
         android:id="@+id/textView5"
-        android:layout_marginTop="49dp"
+        android:layout_marginTop="121dp"
+        android:textColor="#ffffff"
         android:layout_below="@+id/editText2"
         android:layout_alignRight="@+id/textView4"
-        android:layout_alignEnd="@+id/textView4"
-        android:textColor="#4FC3F7" />
+        android:layout_alignEnd="@+id/textView4" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -66,10 +69,12 @@
         android:inputType="phone"
         android:ems="10"
         android:id="@+id/editText3"
-        android:layout_alignTop="@+id/textView5"
+        android:backgroundTint="#ffffff"
+        android:layout_alignBottom="@+id/textView5"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:backgroundTint="#4FC3F7" />
+        android:maxLength="20"
+        />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -91,10 +96,10 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="ارفع الصورة"
         android:id="@+id/textView6"
-        android:layout_alignTop="@+id/button"
-        android:layout_alignRight="@+id/textView5"
-        android:layout_alignEnd="@+id/textView5"
-        android:textColor="#4FC3F7" />
+        android:textColor="#ffffff"
+        android:layout_alignBottom="@+id/button2"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignStart="@+id/textView4" />
 
     <Button
         style="?android:attr/buttonStyleSmall"

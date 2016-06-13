@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hfad.nablusmunicipality1"
-    
-    >
+    package="com.hfad.nablusmunicipality1">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -16,19 +14,13 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Nablus Municipality"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:label="Nablus Municipality"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Contact"
             android:label="@string/title_activity_contact"
@@ -68,12 +60,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LoginActicity"
-            android:label="@string/title_activity_login_acticity"
+            android:label="تسجيل الدخول"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Reports1"
             android:label="البلاغات و الشكاوي"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme1" />
         <activity
             android:name=".R2"
             android:label="@string/title_activity_r2"
@@ -109,6 +101,28 @@
         <activity
             android:name=".Test"
             android:label="@string/title_activity_test"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SplashScreen"
+            android:label="Nablus Municipality"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ReportAReport"
+            android:label="@string/title_activity_report_areport"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Accounts"
+            android:label="الصفحة الشخصية"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ForgetPassword"
+            android:label="نسيت كلمة السر"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

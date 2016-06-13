@@ -9,8 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
-import com.kosalgeek.asynctask.AsyncResponse;
-import com.kosalgeek.asynctask.PostResponseAsyncTask;
+import com.kosalgeek.genasync12.AsyncResponse;
+import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
 import java.util.HashMap;
 
@@ -26,7 +26,7 @@ public class r7 extends AppCompatActivity implements AsyncResponse{
         // This is related to async
         HashMap postData = new HashMap();
         postData.put("id", Reports1.idNum);
-        PostResponseAsyncTask task = new PostResponseAsyncTask(this, postData);
+        PostResponseAsyncTask task = new PostResponseAsyncTask(this, (AsyncResponse) postData);
         task.execute("http://androdimysqlapp.azurewebsites.net/getOrder-4.php");
     }
 

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_first_fragment"
+            android:title="اضافة بلاغ"
+            android:icon="@drawable/ic_add_circle_outline_black_24dp"
+            />
+
+        <item
+            android:id="@+id/nav_second_fragmnet"
+            android:title="دورة المياه"
+            android:icon="@drawable/ic_av_timer_black_24dp"
+            />
+
+        <item
+            android:id="@+id/nab_third_fragment"
+            android:title="اتصل بنا"
+            android:icon="@drawable/ic_call_black_24dp"
+            />
+
+        <item
+            android:id="@+id/nab_sex_fragment"
+            android:title="الصفحة الشخصية"
+            android:icon="@drawable/ic_account_box_black_24dp"
+            />
+
+        <item
+            android:id="@+id/nab_four_fragment"
+            android:title="قيم التطبيق على المتجر"
+            android:icon="@drawable/ic_tag_faces_black_24dp"
+            />
+
+        <item
+            android:id="@+id/nab_five_fragment"
+            android:title="تسجيل الخروج"
+            android:icon="@drawable/ic_keyboard_backspace_black_24dp"
+            />
+
+    </group>
+
+</menu>

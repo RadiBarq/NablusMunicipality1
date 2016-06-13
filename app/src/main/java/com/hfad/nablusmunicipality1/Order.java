@@ -12,6 +12,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -40,8 +41,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-import com.kosalgeek.asynctask.AsyncResponse;
-import com.kosalgeek.asynctask.PostResponseAsyncTask;
+import com.kosalgeek.genasync12.AsyncResponse;
+import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
 import org.apache.http.util.ByteArrayBuffer;
 
@@ -80,8 +81,6 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
 
     // Specify the layout to use when the list of choices appears
 
-
-
     // This integers related to integers
     private int PICK_IMAGE_REQUEST = 1;
     public static final String UPLOAD_KEY = "image";
@@ -97,12 +96,23 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
     GoogleApiClient client;
 
 
+    // This is related to keep the screen on while uploading the report
+    // This is related to keep the screen on while uploading the photo
+    PowerManager powerManager;
+    PowerManager.WakeLock wakeLock;
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+
+
+        powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                "MyWakelockTag");
 
         // This is related to the spinner
         spinner = (Spinner) findViewById(R.id.spinner);
@@ -138,7 +148,6 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         Date date = new Date();
         reportDate = sdf.format(date);
-
 
     }
 
@@ -198,11 +207,13 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
              values.put("DESCRIPTION", description);
              values.put("IMAGE_RESOURCE_ID", phoneNumber);
              values.put("LIKES", likes);
-             database.insert("REPORTSE", null, values);
+    *         database.insert("REPORTSE", null, values);
              Intent loginIntent = new Intent (this, Reports.class);
              startActivity(loginIntent);
              Context context = getApplicationContext();
              */
+
+            wakeLock.acquire();
 
             String uploadImage = "NoPhoto";
             if (bitmap != null) {
@@ -221,13 +232,29 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
             if (bitmap != null)
             postData.put("filename", String.valueOf(random) + ".jpeg");
             else
-                postData.put("filename","");
+                postData.put("filename", uploadImage);
 
             postData.put("report_status", Report_status);
             postData.put("report_date", reportDate);
             postData.put("section", selected_item);
-            PostResponseAsyncTask task = new PostResponseAsyncTask(this, postData);
-            task.execute("http://androdimysqlapp.azurewebsites.net/addData.php");
+            com.kosalgeek.genasync12.PostResponseAsyncTask task1 = new com.kosalgeek.genasync12.PostResponseAsyncTask(this, postData, false, new com.kosalgeek.genasync12.AsyncResponse() {
+                @Override
+                public void processFinish(String s) {
+
+
+
+                    if (s.equals("success")) {
+                        Toast.makeText(Order.this, "تم اضافة البلاغ", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(Order.this, Reports1.class);
+                        finish();
+                        wakeLock.release();
+                     } else {
+                        Toast.makeText(Order.this, "يوجد خطأ في الشبكة اعد المحاوله", Toast.LENGTH_LONG).show();
+                        wakeLock.release();
+                    }
+                }
+            });
+            task1.execute("http://10.0.2.2/addData.php");
 
         }
     }
@@ -238,13 +265,11 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
             Toast.makeText(this, "تم اضافة البلاغ", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, Reports1.class);
             finish();
+            wakeLock.release();
         } else {
             Toast.makeText(this, "يوجد خطأ في الشبكة اعد المحاوله", Toast.LENGTH_LONG).show();
+            wakeLock.release();
         }
-
-
-
-
     }
 
 
@@ -254,7 +279,6 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
         byte[] imageBytes = baos.toByteArray();
         String encodeImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodeImage;
-
     }
 
 
@@ -343,9 +367,7 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
         public void onNothingSelected(AdapterView<?> parent) {
             // Another interface callback
         }
-
     };
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String selected = String.valueOf(parent.getSelectedItem());
@@ -362,9 +384,6 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
         }
 
         client.connect();
-
-
-
     }
 
     @Override

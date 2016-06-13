@@ -11,53 +11,32 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.hfad.nablusmunicipality1.LoginActicity"
     tools:showIn="@layout/activity_login_acticity"
-    android:background="#ffffff">
-
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:src="@drawable/logo1"
-        android:contentDescription="بلدية نابلس"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/imageView" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="تسجيل الدخول"
-        android:id="@+id/textView17"
-        android:layout_below="@+id/imageView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="43dp"
-        android:textColor="#4FC3F7" />
+    android:background="@drawable/blue">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="رقم العداد"
-        android:textColor="#4FC3F7"
+        android:textColor="#ffffff"
         android:id="@+id/textView18"
-        android:layout_below="@+id/textView17"
+        android:layout_marginTop="124dp"
+        android:layout_below="@+id/imageView8"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="74dp" />
-    1
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="كلمة السر"
-        android:textColor="#4FC3F7"
+        android:textColor="#ffffff"
         android:id="@+id/textView19"
+        android:layout_marginTop="76dp"
         android:layout_below="@+id/textView18"
         android:layout_alignRight="@+id/textView18"
         android:layout_alignEnd="@+id/textView18"
-        android:layout_marginTop="60dp" />
+        android:backgroundTint="#ffffff" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -68,20 +47,21 @@
         android:layout_alignBottom="@+id/textView19"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:backgroundTint="#4FC3F7" />
+        android:backgroundTint="#ffffff"
+        android:maxLength="16"
+        />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="تسجيل الدخول"
+        android:text="موافق"
         android:id="@+id/button4"
         android:onClick="onClickLoginButton"
         android:textColor="#ffffff"
         android:background="#4FC3F7"
-        android:layout_marginTop="71dp"
-        android:layout_below="@+id/editText8"
-        android:layout_alignRight="@+id/editText8"
-        android:layout_alignEnd="@+id/editText8" />
+        android:layout_marginTop="46dp"
+        android:layout_below="@+id/textView19"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -92,6 +72,17 @@
         android:layout_alignBottom="@+id/textView18"
         android:layout_alignLeft="@+id/editText8"
         android:layout_alignStart="@+id/editText8"
-        android:backgroundTint="#4FC3F7" />
+        android:backgroundTint="#ffffff"
+        android:maxLength="20"
+        />
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logo1"
+        android:contentDescription="بلدية نابلس"
+        android:id="@+id/imageView8"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

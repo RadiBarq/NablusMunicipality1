@@ -2,9 +2,11 @@ package com.hfad.nablusmunicipality1;
     import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+    import android.support.v4.view.GravityCompat;
+    import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+    import android.util.Log;
+    import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.content.Intent;
@@ -13,15 +15,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import com.kosalgeek.genasync12.AsyncResponse;
+import com.kosalgeek.genasync12.AsyncResponse;
+    import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
-import com.kosalgeek.asynctask.AsyncResponse;
-import com.kosalgeek.asynctask.PostResponseAsyncTask;
-
-import java.util.HashMap;
+    import java.util.HashMap;
 
 
 
-public class LoginActicity extends AppCompatActivity implements AsyncResponse {
+public class
+LoginActicity extends AppCompatActivity implements AsyncResponse {
 
 
     public static String COUNTER_NUMBER = "reporteNo";
@@ -51,8 +54,21 @@ public class LoginActicity extends AppCompatActivity implements AsyncResponse {
             HashMap postData = new HashMap();
             postData.put("txtUsername", buildNumber);
             postData.put("txtPassword", password);
-            PostResponseAsyncTask task = new PostResponseAsyncTask(this, postData);
-            task.execute("http://androdimysqlapp.azurewebsites.net/login.php");
+            com.kosalgeek.genasync12.PostResponseAsyncTask task1 = new com.kosalgeek.genasync12.PostResponseAsyncTask(this, postData, false, new com.kosalgeek.genasync12.AsyncResponse() {
+                @Override
+                public void processFinish(String s) {
+
+                    if (s.equals("success")) {
+                        Toast.makeText(LoginActicity.this, "تم تسجيل دخولك بنجاح", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(LoginActicity.this, Reports1.class);
+                        startActivity(intent);
+                        finish();
+                    } else
+                        Toast.makeText(LoginActicity.this, "تاكد من اتصال الشبكة او المعلومات المدخله", Toast.LENGTH_SHORT).show();
+                }
+            });
+            task1.execute("http://10.0.2.2/login.php");
             COUNTER_NUMBER = buildNumber;
 
         }
@@ -69,4 +85,12 @@ public class LoginActicity extends AppCompatActivity implements AsyncResponse {
         } else
             Toast.makeText(this, "تاكد من اتصال الشبكة او المعلومات المدخله", Toast.LENGTH_SHORT).show();
     }
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent = new Intent(LoginActicity.this, Login.class);
+        startActivity(intent);
+        finish();
+    }
+
 }

@@ -4,20 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".TopLevelActivity"
-    android:background="@drawable/water7"
+    android:background="@drawable/blue"
     >
 
-<ImageView
-    android:layout_width="200dp"
-    android:layout_height="100dp"
-    android:layout_marginTop="50dp"
-    android:src="@drawable/logo1"
-    android:contentDescription="بلدية نابلس" />
 
 <ListView
     android:id="@+id/list_options"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:entries="@array/Questions_Orders"/>
+    android:entries="@array/Questions_Orders"
+    android:layout_marginTop="85dp"
+    />
 
 </LinearLayout>

@@ -33,11 +33,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.view.View;
 import android.widget.CheckBox;
 import android.content.ContentValues;
-import com.kosalgeek.asynctask.AsyncResponse;
-import com.kosalgeek.asynctask.PostResponseAsyncTask;
-import com.kosalgeek.asynctask.PostResponseAsyncTask;
-import com.kosalgeek.asynctask.AsyncResponse;
-import com.kosalgeek.asynctask.PostResponseAsyncTask;
+import com.kosalgeek.genasync12.AsyncResponse;
+import com.kosalgeek.genasync12.PostResponseAsyncTask;
+import com.kosalgeek.genasync12.PostResponseAsyncTask;
+import com.kosalgeek.genasync12.AsyncResponse;
+import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -82,7 +82,7 @@ public class Report extends AppCompatActivity implements AsyncResponse {
     private ProgressDialog pDialog;
     public String id;
     public static String TAG_ID = "id";
-    private static final String url_order_details = "http://androdimysqlapp.azurewebsites.net/getOrder.php";
+    private static final String url_order_details = "http://10.0.2.2/getOrder.php";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_GET = "get";
     private TextView textView_area;
@@ -99,7 +99,7 @@ public class Report extends AppCompatActivity implements AsyncResponse {
     Bitmap image = null;
     ImageView imageView;
     public static String image_id;
-    String hey = "http://androdimysqlapp.azurewebsites.net/images/";
+    String hey = "http://10.0.2.2/images/";
     String url = hey + image_id;
 
     private View mProgressView;
@@ -119,18 +119,17 @@ public class Report extends AppCompatActivity implements AsyncResponse {
         }
 
 
-
         // Universal IMAGE LOADER SETUP
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-                .cacheOnDisc(false).cacheInMemory(false)
-                .imageScaleType(ImageScaleType.NONE)
+                .cacheOnDisc(true).cacheInMemory(true)
+                .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
                 .displayer(new FadeInBitmapDisplayer(500)).build();
 
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
                 getApplicationContext())
                 .defaultDisplayImageOptions(defaultOptions)
                 .memoryCache(new WeakMemoryCache())
-                .discCacheSize(100 * 1024 * 1024).build();
+                .discCacheSize(500 * 2000 * 2000).build();
 
 
 
@@ -173,9 +172,7 @@ public class Report extends AppCompatActivity implements AsyncResponse {
 
     }
 
-
-
-            public void onClickLikesButton(View view) {
+                public void onClickLikesButton(View view) {
                 like1 = Integer.valueOf(R2.Likes);
                 like1++;
                 HashMap postData = new HashMap();
@@ -183,8 +180,22 @@ public class Report extends AppCompatActivity implements AsyncResponse {
                 postData.put("likes", String.valueOf(like1));
                 postData.put("counterNumber", LoginActicity.COUNTER_NUMBER);
                 postData.put("reportId", R5.COUNTERNUMBER);
-                PostResponseAsyncTask task = new PostResponseAsyncTask(this, postData);
-                task.execute("http://androdimysqlapp.azurewebsites.net/android_connect/updateLikes.php");
+
+
+                com.kosalgeek.genasync12.PostResponseAsyncTask task1 = new com.kosalgeek.genasync12.PostResponseAsyncTask(this, postData, false, new com.kosalgeek.genasync12.AsyncResponse() {
+                    @Override
+                    public void processFinish(String s) {
+
+
+
+                        if (s.matches("")) {
+                            textView_likes.setText(String.valueOf(like1));
+                            floatButton.hide();
+                        }
+                    }
+                });
+
+                task1.execute("http://10.0.2.2/android_connect/updateLikes.php");
 
             }
 
@@ -233,6 +244,4 @@ public class Report extends AppCompatActivity implements AsyncResponse {
 
     }
 
-
-
-        }
+}

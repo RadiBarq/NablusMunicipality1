@@ -8,8 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.kosalgeek.asynctask.AsyncResponse;
-import com.kosalgeek.asynctask.PostResponseAsyncTask;
+import com.kosalgeek.genasync12.AsyncResponse;
+import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
 import java.util.HashMap;
 
@@ -25,7 +25,7 @@ public class R4 extends AppCompatActivity implements AsyncResponse {
         intent = new Intent(this, R5.class);
         HashMap postData = new HashMap();
         postData.put("id", Reports1.idNum);
-        PostResponseAsyncTask task = new PostResponseAsyncTask(this, postData);
+        PostResponseAsyncTask task = new PostResponseAsyncTask(this, (AsyncResponse) postData);
         task.execute("http://androdimysqlapp.azurewebsites.net/getOrder.php");
 
 
@@ -33,9 +33,7 @@ public class R4 extends AppCompatActivity implements AsyncResponse {
 
     @Override
     public void processFinish(String s) {
-
         area = s;
-
         startActivity(intent);
         finish();
     }

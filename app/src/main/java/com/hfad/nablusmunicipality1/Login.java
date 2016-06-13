@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,11 +34,21 @@ public class Login extends Activity {
                 if (position == 0) {
                     Intent intent = new Intent(Login.this, LoginActicity.class);
                     startActivity(intent);
+                    finish();
                 }
 
                 else if (position == 1) {
                     Intent intent = new Intent(Login.this, RigesterActivity.class);
                     startActivity(intent);
+                    finish();
+                }
+
+
+                else if (position == 2)
+                {
+                    Intent intent = new Intent(Login.this, ForgetPassword.class);
+                    startActivity(intent);
+                    finish();
                 }
             }
 
@@ -47,6 +58,15 @@ public class Login extends Activity {
         listView.setOnItemClickListener(itemClickListener);
 
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent = new Intent(Login.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 }
 
 

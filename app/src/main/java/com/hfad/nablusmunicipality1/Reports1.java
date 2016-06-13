@@ -7,8 +7,12 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.util.EventLogTags;
@@ -23,7 +27,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
+import android.support.v7.widget.Toolbar;
 
 import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
@@ -84,12 +88,15 @@ public class Reports1 extends AppCompatActivity{
     JSONArray peoples = null;
     public static final String TAG_ID = "id";
     public static String idNum;
+    private ActionBarDrawerToggle drawerToggle;
     SwipeRefreshLayout mSwipeRefreshLayout;
     ArrayList<HashMap<String, String>> personList;
     ListView list;
     public static String image_id;
-    String hey = "http://androdimysqlapp.azurewebsites.net//images/";
+    String hey = "http://10.0.2.2//images/";
     String url = hey + image_id;
+    private DrawerLayout mDrawer;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +118,25 @@ public class Reports1 extends AppCompatActivity{
             });
 
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("القائمة");
 
+        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerToggle = setupDrawerToggle();
+        mDrawer.setDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+
+        NavigationView nvDrawer = (NavigationView) findViewById(R.id.nvView);
+
+        nvDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener()
+        {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item)
+            {
+                selectDrawerItem(item);
+                return true;
+            }
+        });
 
         personList = new ArrayList<HashMap<String, String>>();
         getData();
@@ -138,12 +163,68 @@ public class Reports1 extends AppCompatActivity{
                         }
                     }
                 });
-                task.execute("http://androdimysqlapp.azurewebsites.net/getOrder-1.php");
+                task.execute("http://10.0.2.2/getOrder-1.php");
 
             }
         });
 
 
+    }
+
+
+
+    public void selectDrawerItem(MenuItem menuItem)
+    {
+        android.support.v4.app.Fragment fragment = null;
+
+        switch (menuItem.getItemId()) {
+            case R.id.nav_first_fragment:
+                Intent intent2 = new Intent(Reports1.this, Order.class);
+                mDrawer.closeDrawer(GravityCompat.START);
+                startActivity(intent2);
+                break;
+
+
+            case R.id.nav_second_fragmnet:
+                Intent intent3 = new Intent(Reports1.this, WaterCycle.class);
+                mDrawer.closeDrawer(GravityCompat.START);
+                startActivity(intent3);
+                break;
+
+            case R.id.nab_third_fragment:
+                Intent intent4 = new Intent(Reports1.this, Contact.class);
+                mDrawer.closeDrawer((GravityCompat.START));
+                startActivity(intent4);
+                break;
+            case R.id.nab_four_fragment:
+                Intent intent5 = new Intent(Reports1.this, Contact.class);
+                mDrawer.closeDrawer(GravityCompat.START);
+                startActivity(intent5);
+                break;
+
+            case R.id.nab_five_fragment:
+                Intent intent6 = new Intent(Reports1.this, MainActivity.class);
+                mDrawer.closeDrawer(GravityCompat.START);
+                startActivity(intent6);
+                finish();
+                break;
+            case R.id.nab_sex_fragment:
+                Intent intent7 = new Intent(Reports1.this, Accounts.class);
+                mDrawer.closeDrawer(GravityCompat.START);
+                startActivity(intent7);
+                startActivity(intent7);
+                break;
+
+            default:
+
+        }
+    }
+
+
+    @Override
+    public void onBackPressed()
+    {
+        mDrawer.closeDrawer(GravityCompat.START);
     }
 
     // TODO The Activity result
@@ -188,10 +269,6 @@ public class Reports1 extends AppCompatActivity{
         }
 
     }
-
-
-
-
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -241,7 +318,7 @@ public class Reports1 extends AppCompatActivity{
             @Override
             protected String doInBackground(String... params) {
                 DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
-                HttpPost httppost = new HttpPost("http://androdimysqlapp.azurewebsites.net/android_connect/get-data.php");
+                HttpPost httppost = new HttpPost("http://10.0.2.2/android_connect/get-data.php");
 
                     // Depends on your web service
                 httppost.setHeader("Content-type", "application/json");
@@ -278,9 +355,11 @@ public class Reports1 extends AppCompatActivity{
                 myJSON = result;
                     pDialog.dismiss();
                 mSwipeRefreshLayout.setRefreshing(false);
+                if (myJSON == null)
+                    Toast.makeText(Reports1.this, "Please check your internet connection", Toast.LENGTH_LONG).show();
+
+                if (myJSON != null)
                 showList();
-
-
             }
         }
         GetDataJSON g = new GetDataJSON();
@@ -292,6 +371,29 @@ public class Reports1 extends AppCompatActivity{
         Intent intent = new Intent(Reports1.this, Order.class);
         startActivity(intent);
     }
+
+
+    private ActionBarDrawerToggle setupDrawerToggle()
+    {
+        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.open_drawer, R.string.close_drawer)
+        {
+            @Override
+            public void onDrawerClosed(View drawerView)
+            {
+                super.onDrawerClosed(drawerView);
+
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView)
+            {
+                super.onDrawerOpened(drawerView);
+            }
+
+
+        };
+    }
+
 
 
 

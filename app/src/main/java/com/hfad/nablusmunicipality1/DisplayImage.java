@@ -21,7 +21,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 public class DisplayImage extends AppCompatActivity {
-    String hey = "http://androdimysqlapp.azurewebsites.net/images/";
+    String hey = "http://10.0.2.2/images/";
     String url = hey + Report.image_id;
     private View mProgressView;
 
