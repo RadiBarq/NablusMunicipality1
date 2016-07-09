@@ -57,11 +57,11 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="رقم الهاتف"
         android:id="@+id/textView5"
-        android:layout_marginTop="121dp"
         android:textColor="#ffffff"
+        android:layout_marginTop="96dp"
         android:layout_below="@+id/editText2"
-        android:layout_alignRight="@+id/textView4"
-        android:layout_alignEnd="@+id/textView4" />
+        android:layout_alignRight="@+id/textView6"
+        android:layout_alignEnd="@+id/textView6" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -97,7 +97,7 @@
         android:text="ارفع الصورة"
         android:id="@+id/textView6"
         android:textColor="#ffffff"
-        android:layout_alignBottom="@+id/button2"
+        android:layout_alignTop="@+id/button2"
         android:layout_alignLeft="@+id/textView4"
         android:layout_alignStart="@+id/textView4" />
 
@@ -125,10 +125,9 @@
         android:onClick="onClickLocation"
         android:background="#4FC3F7"
         android:textColor="#ffffff"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/textView5"
-        android:layout_alignStart="@+id/textView5"
-        android:layout_marginBottom="52dp" />
+        android:layout_below="@+id/button2"
+        android:layout_alignRight="@+id/textView6"
+        android:layout_alignEnd="@+id/textView6" />
 
     <Spinner
         android:layout_width="wrap_content"
@@ -138,6 +137,32 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:entries="@array/sectionarray"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="اضف البلاغ"
+        android:id="@+id/button8"
+        android:onClick="onFloatButtonClicked"
+        android:textColor="#ffffff"
+        android:background="#4FC3F7"
+        android:layout_below="@+id/button5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="حفظ البلاغ"
+        android:id="@+id/button12"
+        android:background="#4FC3F7"
+        android:textColor="#ffffff"
+        android:layout_alignTop="@+id/button8"
+        android:layout_alignRight="@+id/editText3"
+        android:layout_alignEnd="@+id/editText3"
+        android:onClick="onClickSave"
         />
 
 

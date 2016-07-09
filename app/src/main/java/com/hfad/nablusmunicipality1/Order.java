@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -64,8 +65,8 @@ import java.util.Random;
 public class Order extends AppCompatActivity implements AsyncResponse, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener{
     public static final String EXTRA_REPORT = "reporteNo";
     public String area;
-    public String description;
-    public String phoneNumber;
+    public String description = "";
+    public String phoneNumber = "";
     private EditText editText1;
     private EditText editText2;
     private EditText editText3;
@@ -77,6 +78,10 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
 
     // Those related to the spinner
     Spinner spinner;
+
+
+    static int CHEKER = 0;
+
     String selected_item = null;
 
     // Specify the layout to use when the list of choices appears
@@ -102,12 +107,13 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
     PowerManager.WakeLock wakeLock;
 
 
-
+    String uploadImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+
 
 
         powerManager = (PowerManager) getSystemService(POWER_SERVICE);
@@ -149,6 +155,22 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
         Date date = new Date();
         reportDate = sdf.format(date);
 
+        //TODO put the data inside sql database
+
+        if (CHEKER == 1)
+        {
+
+
+            SharedPreferences load = getSharedPreferences("hi", 0);
+            description = load.getString("description", "");
+            phoneNumber = load.getString("phoneNumber", "");
+            sLocation  = load.getString("location", "");
+            uploadImage = load.getString("uploadImage", "");
+            editText2.setText(description);
+            editText3.setText(phoneNumber);
+
+        }
+
     }
 
 
@@ -165,6 +187,15 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
     }
 
 
+
+    // Empty constructor
+    public Order()
+    {
+
+    }
+
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -172,6 +203,7 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
             filePath = data.getData();
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                CHEKER = 0;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -180,6 +212,7 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
             filePath = data.getData().normalizeScheme();
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                CHEKER = 0;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -196,7 +229,7 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
             Toast.makeText(this, "نسيت خانة الوصف", Toast.LENGTH_SHORT).show();
             return;
         } else if (phoneNumber.matches("")) {
-            Context context = getApplicationContext();
+             Context context = getApplicationContext();
             Toast.makeText(this, "نسيت ان تضع رقم هاتفك", Toast.LENGTH_SHORT).show();
             return;
         } else {
@@ -205,9 +238,8 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
             /**
              values.put("AREA", area);
              values.put("DESCRIPTION", description);
-             values.put("IMAGE_RESOURCE_ID", phoneNumber);
-             values.put("LIKES", likes);
-    *         database.insert("REPORTSE", null, values);
+             values.put("IMAGE_RESOURCE_ID"*, phoneNumber);
+             values.put("LIKES", likes);   *         database.insert("REPORTSE", null, values);
              Intent loginIntent = new Intent (this, Reports.class);
              startActivity(loginIntent);
              Context context = getApplicationContext();
@@ -215,10 +247,20 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
 
             wakeLock.acquire();
 
-            String uploadImage = "NoPhoto";
             if (bitmap != null) {
+
                 uploadImage = getStringImage(bitmap);
             }
+
+            else if (CHEKER == 1)
+            {
+
+            }
+
+            else {
+                uploadImage = "NoPhoto";
+            }
+
             // This realted to async
             HashMap postData = new HashMap();
             postData.put("area", sLocation);
@@ -229,10 +271,12 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
             postData.put("image", uploadImage);
 
             // This check if the photo there is a photo or not
-            if (bitmap != null)
-            postData.put("filename", String.valueOf(random) + ".jpeg");
-            else
+            if (bitmap != null || CHEKER == 1) {
+                postData.put("filename", String.valueOf(random) + ".jpeg");
+            }
+            else {
                 postData.put("filename", uploadImage);
+            }
 
             postData.put("report_status", Report_status);
             postData.put("report_date", reportDate);
@@ -241,21 +285,27 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
                 @Override
                 public void processFinish(String s) {
 
+                     if (!s.equals("success")) {
 
-
-                    if (s.equals("success")) {
                         Toast.makeText(Order.this, "تم اضافة البلاغ", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(Order.this, Reports1.class);
-                        finish();
+                        CHEKER = 0;
+                        SharedPreferences save = getSharedPreferences("hi", 0);
+                        save.edit().putString("description","").commit();
+                        startActivity(intent);
                         wakeLock.release();
-                     } else {
-                        Toast.makeText(Order.this, "يوجد خطأ في الشبكة اعد المحاوله", Toast.LENGTH_LONG).show();
+                        finish();
+                     }
+
+                    else
+                    {
+                        Toast.makeText(Order.this, "يود خطأ في الشبكة اعد المحاولة", Toast.LENGTH_LONG).show();
                         wakeLock.release();
                     }
                 }
             });
-            task1.execute("http://10.0.2.2/addData.php");
 
+            task1.execute("http://10.0.2.2/addData.php");
         }
     }
 
@@ -271,7 +321,6 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
             wakeLock.release();
         }
     }
-
 
     public String getStringImage(Bitmap bmp) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -386,6 +435,44 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
         client.connect();
     }
 
+    public void onClickSave(View view)
+    {
+
+        description = editText2.getText().toString();
+        phoneNumber = editText3.getText().toString();
+
+        if (description.matches("")) {
+            Context context = getApplicationContext();
+            Toast.makeText(this, "نسيت خانة الوصف", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (phoneNumber.matches("")) {
+            Context context = getApplicationContext();
+            Toast.makeText(this, "نسيت ان تضع رقم هاتفك", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        else {
+            SharedPreferences save = getSharedPreferences("hi", 0);
+            save.edit().putString("description", description).commit();
+            save.edit().putString("phoneNumber", phoneNumber).commit();
+            Intent intent = new Intent(Order.this, Reports1.class);
+            startActivity(intent);
+            if (!sLocation.matches(""))
+            {
+                save.edit().putString("location", sLocation).commit();
+            }
+
+            if (bitmap != null)
+            {
+                uploadImage = getStringImage(bitmap);
+                save.edit().putString("uploadImage", uploadImage).commit();
+            }
+
+            CHEKER = 1;
+        }
+    }
+
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -396,4 +483,28 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
+    // constructor
+    public Order(String description, String phoneNumber, String sLocation)
+    {
+        this.description = description;
+        this.phoneNumber = phoneNumber;
+        this.sLocation = sLocation;
+    }
+
+    // getting Description
+    public String getDescription()
+    {
+        return this.description;
+    }
+
+    // getting the PhoneNumber
+    public String getPhoneNumber()
+    {
+        return this.phoneNumber;
+    }
+    public String getsLocation() {
+        return this.sLocation;
+    }
+
 }

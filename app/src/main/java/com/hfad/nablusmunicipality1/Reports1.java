@@ -4,8 +4,12 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -31,9 +35,14 @@ import android.support.v7.widget.Toolbar;
 
 import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
+
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.lang.annotation.AnnotationFormatError;
 import java.util.HashMap;
 import org.apache.http.HttpEntity;
@@ -71,6 +80,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.jar.Attributes;
 
 
 public class Reports1 extends AppCompatActivity{
@@ -78,6 +88,8 @@ public class Reports1 extends AppCompatActivity{
     String myJSON;
 
     int CHEKER = 0;
+
+    int COUNTER = 0;
     public static int Counter = 0;
 
     private ProgressDialog pDialog;
@@ -86,7 +98,7 @@ public class Reports1 extends AppCompatActivity{
     private static final String TAG_LIKES = "likes";
     private static final String TAG_DESCRIPTION = "description";
     JSONArray peoples = null;
-    public static final String TAG_ID = "id";
+    public static  final String TAG_ID = "id";
     public static String idNum;
     private ActionBarDrawerToggle drawerToggle;
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -97,15 +109,13 @@ public class Reports1 extends AppCompatActivity{
     String url = hey + image_id;
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
-
+    String SavedCheker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_reports1);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent, R.color.colorPrimaryDark);
-
-
 
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -118,7 +128,17 @@ public class Reports1 extends AppCompatActivity{
             });
 
 
+
+
+
+        SharedPreferences load = getSharedPreferences("hi", 0);
+        SavedCheker = load.getString("description", "");
+
+        if (!SavedCheker.matches(""))
+            Toast.makeText(Reports1.  this, "انتبه لديك بلاغ محفوظ في الحافظة", Toast.LENGTH_LONG).show();
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(Color.BLACK);
         toolbar.setTitle("القائمة");
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -155,7 +175,7 @@ public class Reports1 extends AppCompatActivity{
                     public void processFinish(String s) {
 
                         if (s.matches(""))
-                            Toast.makeText(Reports1.this, "تامد من اتصال الشبكه", Toast.LENGTH_LONG);
+                            Toast.makeText(Reports1.this, "تاكد من اتصال الشبكة", Toast.LENGTH_LONG);
                         else {
                             Description = s;
                             Intent in = new Intent(Reports1.this, Test.class);
@@ -164,14 +184,10 @@ public class Reports1 extends AppCompatActivity{
                     }
                 });
                 task.execute("http://10.0.2.2/getOrder-1.php");
-
             }
         });
 
-
     }
-
-
 
     public void selectDrawerItem(MenuItem menuItem)
     {
@@ -196,6 +212,7 @@ public class Reports1 extends AppCompatActivity{
                 mDrawer.closeDrawer((GravityCompat.START));
                 startActivity(intent4);
                 break;
+
             case R.id.nab_four_fragment:
                 Intent intent5 = new Intent(Reports1.this, Contact.class);
                 mDrawer.closeDrawer(GravityCompat.START);
@@ -208,13 +225,35 @@ public class Reports1 extends AppCompatActivity{
                 startActivity(intent6);
                 finish();
                 break;
-            case R.id.nab_sex_fragment:
+
+            case R.id.nab_six_fragment:
                 Intent intent7 = new Intent(Reports1.this, Accounts.class);
                 mDrawer.closeDrawer(GravityCompat.START);
                 startActivity(intent7);
                 startActivity(intent7);
                 break;
 
+
+            case R.id.nab_seven_fragment:
+                COUNTER = 1;
+                mDrawer.closeDrawer(GravityCompat.START);
+                personList = new ArrayList<HashMap<String, String>>();
+                getData();
+                break;
+
+            case R.id.nav_eight_fragment:
+                COUNTER = 0;
+                mDrawer.closeDrawer(GravityCompat.START);
+                personList = new ArrayList<HashMap<String, String>>();
+                getData();
+                break;
+
+            case R.id.nab_ninth_fragment:
+                Order.CHEKER = 1;
+                mDrawer.closeDrawer(GravityCompat.START);
+                Intent intent = new Intent(Reports1.this, Order.class);
+                startActivity(intent);
+                break;
             default:
 
         }
@@ -317,38 +356,94 @@ public class Reports1 extends AppCompatActivity{
 
             @Override
             protected String doInBackground(String... params) {
-                DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
-                HttpPost httppost = new HttpPost("http://10.0.2.2/android_connect/get-data.php");
+
+                String result = null;
+                if (COUNTER == 0) {
+
+                    DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
+                    HttpPost httppost = new HttpPost("http://10.0.2.2/android_connect/get-data.php");
 
                     // Depends on your web service
-                httppost.setHeader("Content-type", "application/json");
+                    httppost.setHeader("Content-type", "application/json");
 
-                InputStream inputStream = null;
-                String result = null;
-                try {
-                    HttpResponse response = httpclient.execute(httppost);
-                    HttpEntity entity = response.getEntity();
+                    InputStream inputStream = null;
 
-                    inputStream = entity.getContent();
-                    // json is UTF-8 by default
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
-                    StringBuilder sb = new StringBuilder();
-
-                    String line = null;
-                    while ((line = reader.readLine()) != null) {
-                        sb.append(line + "\n");
-                    }
-                    result = sb.toString();
-                } catch (Exception e) {
-                    // Oops
-                } finally {
                     try {
-                        if (inputStream != null) inputStream.close();
-                    } catch (Exception squish) {
+                        HttpResponse response = httpclient.execute(httppost);
+                        HttpEntity entity = response.getEntity();
+
+                        inputStream = entity.getContent();
+                        // json is UTF-8 by default
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
+                        StringBuilder sb = new StringBuilder();
+
+                        String line = null;
+                        while ((line = reader.readLine()) != null) {
+                            sb.append(line + "\n");
+                        }
+                        result = sb.toString();
+                    } catch (Exception e) {
+                        // Oops
+                    } finally {
+                        try {
+                            if (inputStream != null) inputStream.close();
+                        } catch (Exception squish) {
+                        }
                     }
+                    return result;
                 }
+
+                else if(COUNTER == 1)
+                {
+                    DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
+                    HttpPost httppost = new HttpPost("http://10.0.2.2/android_connect/get-my-data.php");
+
+                    // Encoding POST data
+                    List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(4);
+                    nameValuePair.add(new BasicNameValuePair("email", LoginActicity.COUNTER_NUMBER));
+
+                    try {
+                        httppost.setEntity(new UrlEncodedFormEntity(nameValuePair));
+                    } catch (UnsupportedEncodingException e) {
+                        // log exception
+                        e.printStackTrace();
+                    }
+
+
+                    // Depends on your web service
+
+                    InputStream inputStream = null;
+
+                    try {
+                        HttpResponse response = httpclient.execute(httppost);
+                        HttpEntity entity = response.getEntity();
+
+                        Log.d("Http Post Response:", response.toString());
+
+                        inputStream = entity.getContent();
+                        // json is UTF-8 by default
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
+                        StringBuilder sb = new StringBuilder();
+
+                        String line = null;
+                        while ((line = reader.readLine()) != null) {
+                            sb.append(line + "\n");
+                        }
+                        result = sb.toString();
+                    } catch (Exception e) {
+                        // Oops
+                    } finally {
+                        try {
+                            if (inputStream != null) inputStream.close();
+                        } catch (Exception squish) {
+                        }
+                    }
+                    return result;
+                }
+
                 return result;
             }
+
 
             @Override
             protected void onPostExecute(String result) {

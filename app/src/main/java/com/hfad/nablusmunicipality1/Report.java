@@ -244,4 +244,14 @@ public class Report extends AppCompatActivity implements AsyncResponse {
 
     }
 
+
+    public void onClickButton(View view)
+    {
+        Intent intent = new Intent(Report.this, ReportStatus.class);
+        startActivity(intent);
+
+    }
+
+
+
 }

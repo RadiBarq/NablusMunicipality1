@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="Nablus Municipality"
+            android:label="Nablus Municipality(Water Section)"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Contact"
@@ -104,7 +104,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SplashScreen"
-            android:label="Nablus Municipality"
+            android:label="Nablus Municipality(Water Section)"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -123,6 +123,18 @@
         <activity
             android:name=".ForgetPassword"
             android:label="نسيت كلمة السر"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MyReport"
+            android:label="@string/title_activity_my_report"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ReportStatus"
+            android:label="@string/title_activity_report_status"
+            android:theme="@style/AppTheme1" />
+        <activity
+            android:name=".AddReportStatus"
+            android:label="@string/title_activity_add_report_status"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

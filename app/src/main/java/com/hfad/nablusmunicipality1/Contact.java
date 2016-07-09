@@ -8,13 +8,13 @@ import android.view.View;
 
 public class Contact extends Activity{
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
 
     }
-
 
 
     public void onClickFacebook (View view)
@@ -41,5 +41,17 @@ public class Contact extends Activity{
 
     }
 
+    public void onClickGmail(View view)
+    {
+        Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+        sendIntent.setType("plain/text");
+        sendIntent.setData(Uri.parse("grayllow@gmail.com"));
+        sendIntent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
+        sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { "grayllow@gmail.com" });
+        sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "");
+        startActivity(sendIntent);
+
+    }
 
 }

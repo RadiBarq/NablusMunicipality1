@@ -45,9 +45,11 @@ LoginActicity extends AppCompatActivity implements AsyncResponse {
         String password = editText8.getText().toString();
 
         if (buildNumber.matches(""))
-            Toast.makeText(this, "نسيت رقم العداد", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "نسيت ان تضع الايميل", Toast.LENGTH_SHORT).show();
         else if (password.matches(""))
             Toast.makeText(this, "نسيت ان تضع كلمة السر", Toast.LENGTH_SHORT).show();
+        else if (!buildNumber.contains("@"))
+            Toast.makeText(this, "صيغة البريد الالكتروني غير صحيحة", Toast.LENGTH_SHORT).show();
 
       else {
             // This realted to async
@@ -68,9 +70,9 @@ LoginActicity extends AppCompatActivity implements AsyncResponse {
                         Toast.makeText(LoginActicity.this, "تاكد من اتصال الشبكة او المعلومات المدخله", Toast.LENGTH_SHORT).show();
                 }
             });
+
             task1.execute("http://10.0.2.2/login.php");
             COUNTER_NUMBER = buildNumber;
-
         }
     }
     @Override

@@ -31,9 +31,10 @@
         android:text="وصف البلاغ"
         android:id="@+id/description"
         android:textColor="#ffffff"
-        android:layout_below="@+id/imageView5"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp" />
+        android:layout_above="@+id/textView11"
+        android:layout_alignRight="@+id/textView9"
+        android:layout_alignEnd="@+id/textView9"
+        android:layout_marginBottom="30dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,14 +42,14 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="حالة البلاغ"
         android:id="@+id/textView9"
-        android:layout_marginTop="43dp"
         android:textColor="#ffffff"
         android:layout_below="@+id/textView10"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp" />
 
     <TextView
         android:layout_width="350dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Small Text"
         android:gravity="center"
@@ -73,14 +74,13 @@
 
     <TextView
         android:layout_width="350dp"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Small Text"
         android:id="@+id/textView11"
         android:gravity="center"
-        android:layout_below="@+id/description"
-        android:layout_alignRight="@+id/imageView5"
-        android:layout_alignEnd="@+id/imageView5" />
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/hab"
@@ -89,11 +89,10 @@
         android:layout_gravity="bottom|left"
         android:src="@drawable/like"
         android:background="#00e6ff"
-        android:layout_margin="3dp"
         android:onClick="onClickLikesButton"
         android:layout_below="@+id/textView10"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignLeft="@+id/login_form"
+        android:layout_alignStart="@+id/login_form" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -104,7 +103,7 @@
         android:layout_centerHorizontal="true"
         android:onClick="onClickImage"
         >
-        </ImageView>
+    </ImageView>
 
     <ScrollView
         android:id="@+id/login_form"
@@ -152,7 +151,17 @@
         android:layout_alignParentEnd="true"
         android:textColor="#ffffff" />
 
-
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="سجل البلاغ الكامل"
+        android:id="@+id/button9"
+        android:onClick="onClickButton"
+        android:layout_alignBaseline="@+id/textView10"
+        android:layout_alignBottom="@+id/textView10"
+        android:layout_alignRight="@+id/login_form"
+        android:layout_alignEnd="@+id/login_form" />
 
 
 </RelativeLayout>

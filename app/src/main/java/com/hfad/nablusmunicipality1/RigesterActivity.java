@@ -53,7 +53,7 @@ public class RigesterActivity extends AppCompatActivity implements AsyncResponse
         String location = editText9.getText().toString();
         String email = editText10.getText().toString();
         if (counterNumber.matches(""))
-            Toast.makeText(this, "نسيت رقم العداد", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "نسيت ان تكتب رقم الخدمة", Toast.LENGTH_SHORT).show();
         else if (userName.matches(""))
             Toast.makeText(this, "نسيت خانة الاسم", Toast.LENGTH_SHORT).show();
         else if (password.matches(""))
@@ -114,6 +114,7 @@ public class RigesterActivity extends AppCompatActivity implements AsyncResponse
         else
             Toast.makeText(this, "يوجد خطا في الشبكه اعد المحاوله", Toast.LENGTH_LONG).show();
     }
+
     @Override
     public void onBackPressed()
     {

@@ -4,9 +4,26 @@
     <group android:checkableBehavior="single">
 
         <item
+            android:id="@+id/nav_eight_fragment"
+            android:title="جميع البلاغات و الشكاوي"
+            android:icon="@drawable/ic_email_black_24dp"
+            />
+
+        <item
+            android:id="@+id/nab_seven_fragment"
+            android:title="البلاغات خاصتي"
+            android:icon = "@drawable/ic_contact_mail_black_24dp" />
+
+        <item
             android:id="@+id/nav_first_fragment"
             android:title="اضافة بلاغ"
             android:icon="@drawable/ic_add_circle_outline_black_24dp"
+            />
+
+        <item
+            android:id="@+id/nab_ninth_fragment"
+            android:title = "البلاغات المحفوظة"
+            android:icon="@drawable/ic_delete_black_24dp"
             />
 
         <item
@@ -22,7 +39,7 @@
             />
 
         <item
-            android:id="@+id/nab_sex_fragment"
+            android:id="@+id/nab_six_fragment"
             android:title="الصفحة الشخصية"
             android:icon="@drawable/ic_account_box_black_24dp"
             />

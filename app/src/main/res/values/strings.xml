@@ -37,10 +37,10 @@
     <string name="title_activity_test">Test</string>
 
     <string-array name="sectionarray">
+        <item>المياه</item>
         <item>الادارة</item>
         <item>العامه</item>
         <item>الهندسة</item>
-        <item>المياه</item>
         <item>الماليه</item>
         <item>العلاقات العامه</item>
         <item>الصحه و البيئه</item>
@@ -62,5 +62,8 @@
     <string name="title_activity_report_areport">ReportAReport</string>
     <string name="title_activity_accounts">Accounts</string>
     <string name="title_activity_forget_password">ForgetPassword</string>
+    <string name="title_activity_my_report">MyReport</string>
+    <string name="title_activity_report_status">ReportStatus</string>
+    <string name="title_activity_add_report_status">AddReportStatus</string>
 
 </resources>
