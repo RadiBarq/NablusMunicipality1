@@ -32,6 +32,12 @@ public class ReportsDatabaseHelper extends SQLiteOpenHelper  {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
+        // TODO Auto-generated method stup
+        String query, query1;
+
+        query = "DROP TABLE IF EXIST area, description, image_resource, likes";
+
+        db.execSQL(query);
 
     }
 

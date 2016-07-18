@@ -89,7 +89,7 @@ public class Report extends AppCompatActivity implements AsyncResponse {
     private TextView textView_description;
     private TextView textView_report_status;
     private TextView textView_likes;
-
+    public static String report_date;
     private TextView textView_report_date;
     private FloatingActionButton floatButton;
     int like1;
@@ -228,7 +228,7 @@ public class Report extends AppCompatActivity implements AsyncResponse {
             int shortAnimeTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
 
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mProgressView.animate().setDuration(shortAnimeTime).alpha(
                     show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
                 @Override

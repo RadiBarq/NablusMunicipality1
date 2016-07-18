@@ -10,9 +10,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
@@ -44,15 +46,22 @@ public class ReportStatus extends AppCompatActivity {
     private static final String TAG_RESULTS = "result";
     JSONArray peoples = null;
     ArrayList<HashMap<String, String>> personList;
+    TextView textViewDate;
+    TextView textViewId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_status);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
+        textViewDate = (TextView) findViewById(R.id.textView43);
+        textViewId = (TextView) findViewById(R.id.textView41);
         list = (ListView) findViewById(R.id.listView);
+
+
+        textViewId.setText(Reports1.idNum);
+        textViewDate.setText(R9.report_date);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +81,8 @@ public class ReportStatus extends AppCompatActivity {
         personList = new ArrayList<HashMap<String, String>>();
         getData();
     }
+
+
 
     public void getData()
     {
@@ -97,7 +108,7 @@ public class ReportStatus extends AppCompatActivity {
                 HttpPost httppost = new HttpPost("http://10.0.2.2/android_connect/get-report-status.php");
 
                 List<NameValuePair> nameValuePairList = new ArrayList<NameValuePair>(4);
-                nameValuePairList.add(new BasicNameValuePair("table_id", Reports1.idNum + "_table"));
+                nameValuePairList.add(new BasicNameValuePair("table_id", Reports1.idNum));
 
                 try {
                     httppost.setEntity(new UrlEncodedFormEntity(nameValuePairList));
@@ -160,21 +171,28 @@ public class ReportStatus extends AppCompatActivity {
                 JSONObject c = peoples.getJSONObject(i);
                 String reportStatus = c.getString("report_status");
                 String date = c.getString("date");
+                String manuStatus = c.getString("manu_status");
 
                 HashMap<String, String> persons = new HashMap<String, String>();
 
                 persons.put("description", reportStatus);
                 persons.put("report_date", date);
 
+                if (LoginActicity.COUNTER_NUMBER.matches("admin@gmail.com"))
+                    persons.put("area", manuStatus);
+
+                else
+                {
+                    persons.put("area", "");
+                }
+
                 personList.add(persons);
-
-
             }
 
             ListAdapter adapter = new SimpleAdapter(
                     ReportStatus.this, personList, R.layout.list_item1,
-                    new String[]{"description", "report_date"},
-                    new int[]{R.id.description, R.id.date}
+                    new String[]{"description", "report_date", "area"},
+                    new int[]{R.id.description, R.id.date, R.id.area}
             );
 
             list.setAdapter(adapter);

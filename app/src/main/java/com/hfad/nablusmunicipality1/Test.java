@@ -104,13 +104,7 @@ private View mProgressView;
             @Override
             public void processFinish(String s) {
 
-                if (s.matches("1"))
-                R8.report_status = "لم ينظر به بعد";
-                else if (s.matches("2"))
-                    R8.report_status = "يتم العمل عليه";
-                else if(s.matches("3"))
-                    R8.report_status = "تم الانتهاء من العمل على البلاغ"
-                            ;
+                R8.report_status = s;
 
 
             }
