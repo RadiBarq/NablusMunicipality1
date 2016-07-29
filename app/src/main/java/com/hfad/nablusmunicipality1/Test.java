@@ -22,11 +22,13 @@ public class Test extends AppCompatActivity{
 int counter  = 0;
 public static int image_checker = 0;
 private View mProgressView;
-    String hey = "http://10.0.2.2/images/";
+    String hey = "http://52.42.94.127/images/";
     String Image_id;
     String url = hey + Image_id;
     public static int likesChecker = 0;
-
+    public static String area;
+    public static String phoneNumber;
+    public static String emailAdress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +52,14 @@ private View mProgressView;
                 R2.Likes = s;
             }
         });
-        task.execute("http://10.0.2.2/getOrder-3.php");
+        task.execute("http://52.42.94.127/getOrder-3.php");
         PostResponseAsyncTask task1 = new PostResponseAsyncTask(this, postData, false, new AsyncResponse() {
             @Override
             public void processFinish(String s) {
                 R4.area = s;
             }
         });
-        task1.execute("http://10.0.2.2/getOrder.php");
+        task1.execute("http://52.42.94.127/getOrder.php");
         PostResponseAsyncTask task2 = new PostResponseAsyncTask(this, postData, false, new AsyncResponse() {
             @Override
             public void processFinish(String s) {
@@ -68,7 +70,7 @@ private View mProgressView;
                 R5.COUNTERNUMBER = s;
             }
         });
-        task2.execute("http://10.0.2.2/getCounter.php");
+        task2.execute("http://52.42.94.127/getCounter.php");
         PostResponseAsyncTask task3 = new PostResponseAsyncTask(this, postData1, false, new AsyncResponse() {
             @Override
             public void processFinish(String s) {
@@ -80,7 +82,7 @@ private View mProgressView;
                     likesChecker = 0;
             }
         });
-        task3.execute("http://10.0.2.2/checkLikes.php");
+        task3.execute("http://52.42.94.127/checkLikes.php");
         PostResponseAsyncTask task4 = new PostResponseAsyncTask(this, postData, false, new AsyncResponse() {
             @Override
             public void processFinish(String s) {
@@ -99,7 +101,7 @@ private View mProgressView;
 
             }
         });
-        task4.execute("http://10.0.2.2/getOrder-4.php");
+        task4.    execute("http://52.42.94.127/getOrder-4.php");
         PostResponseAsyncTask task5 = new PostResponseAsyncTask(this, postData, false, new AsyncResponse() {
             @Override
             public void processFinish(String s) {
@@ -109,7 +111,7 @@ private View mProgressView;
 
             }
         });
-        task5.execute("http://10.0.2.2/getOrder-5.php");
+        task5.execute("http://52.42.94.127/getOrder-5.php");
 
         PostResponseAsyncTask task6 = new PostResponseAsyncTask(this, postData, false, new AsyncResponse() {
             @Override
@@ -123,7 +125,48 @@ private View mProgressView;
             }
         });
 
-        task6.execute("http://10.0.2.2/getOrder-6.php");
+        task6.execute("http://52.42.94.127/getOrder-6.php");
+
+
+
+
+
+
+        PostResponseAsyncTask task10 = new PostResponseAsyncTask(this, postData, false, new AsyncResponse() {
+            @Override
+            public void processFinish(String s) {
+
+                area = s;
+
+            }
+        });
+
+        task10.execute("http://52.42.94.127/getOrder-10.php");
+
+
+        PostResponseAsyncTask task11 = new PostResponseAsyncTask(this, postData, false, new AsyncResponse() {
+            @Override
+            public void processFinish(String s) {
+
+                phoneNumber = s;
+
+            }
+        });
+
+
+        task11.execute("http://52.42.94.127/getOrder-11.php");
+
+        PostResponseAsyncTask task12 = new PostResponseAsyncTask(this, postData, false, new AsyncResponse() {
+            @Override
+
+            public void processFinish(String s) {
+
+                emailAdress = s;
+            }
+        });
+
+        task12.execute("http://52.42.94.127/getOrder-12.php");
+
     }
 
 

@@ -55,7 +55,6 @@ public class SendMail extends AsyncTask<Void, Void, Void> {
         super.onPostExecute(aVoid);
         //Dismissing the progress dialog
         progressDialog.dismiss();
-        Toast.makeText(context, "تم ارسال كود التفعيل الى البريدالالكتروني خاصتك", Toast.LENGTH_LONG).show();
     }
 
     @Override

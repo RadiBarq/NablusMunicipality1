@@ -22,7 +22,7 @@
 
         <item
             android:id="@+id/nab_ninth_fragment"
-            android:title = "البلاغات المحفوظة"
+            android:title = "البلاغ المحفوظ"
             android:icon="@drawable/ic_delete_black_24dp"
             />
 
@@ -46,7 +46,7 @@
 
         <item
             android:id="@+id/nab_four_fragment"
-            android:title="قيم التطبيق على المتجر"
+            android:title="قدم لنا رايك عن التطبيق"
             android:icon="@drawable/ic_tag_faces_black_24dp"
             />
 

@@ -105,7 +105,7 @@ public class Reports1 extends AppCompatActivity{
     ArrayList<HashMap<String, String>> personList;
     ListView list;
     public static String image_id;
-    String hey = "http://10.0.2.2//images/";
+    String hey = "http://52.42.94.127//images/";
     String url = hey + image_id;
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
@@ -138,7 +138,6 @@ public class Reports1 extends AppCompatActivity{
             Toast.makeText(Reports1.  this, "انتبه لديك بلاغ محفوظ في الحافظة", Toast.LENGTH_LONG).show();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(Color.BLACK);
         toolbar.setTitle("القائمة");
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -183,7 +182,7 @@ public class Reports1 extends AppCompatActivity{
                         }
                     }
                 });
-                task.execute("http://10.0.2.2/getOrder-1.php");
+                task.execute("http://52.42.94.127/getOrder-1.php");
             }
         });
 
@@ -229,7 +228,6 @@ public class Reports1 extends AppCompatActivity{
             case R.id.nab_six_fragment:
                 Intent intent7 = new Intent(Reports1.this, Accounts.class);
                 mDrawer.closeDrawer(GravityCompat.START);
-                startActivity(intent7);
                 startActivity(intent7);
                 break;
 
@@ -361,7 +359,7 @@ public class Reports1 extends AppCompatActivity{
                 if (COUNTER == 0) {
 
                     DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
-                    HttpPost httppost = new HttpPost("http://10.0.2.2/android_connect/get-data.php");
+                    HttpPost httppost = new HttpPost("http://52.42.94.127/get-data.php");
 
                     // Depends on your web service
                     httppost.setHeader("Content-type", "application/json");
@@ -396,7 +394,7 @@ public class Reports1 extends AppCompatActivity{
                 else if(COUNTER == 1)
                 {
                     DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
-                    HttpPost httppost = new HttpPost("http://10.0.2.2/android_connect/get-my-data.php");
+                    HttpPost httppost = new HttpPost("http://52.42.94.127/get-my-data.php");
 
                     // Encoding POST data
                     List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(4);

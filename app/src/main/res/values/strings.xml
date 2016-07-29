@@ -37,18 +37,10 @@
     <string name="title_activity_test">Test</string>
 
     <string-array name="sectionarray">
+
         <item>المياه</item>
-        <item>الادارة</item>
-        <item>العامه</item>
-        <item>الهندسة</item>
-        <item>الماليه</item>
-        <item>العلاقات العامه</item>
-        <item>الصحه و البيئه</item>
-        <item>خدمات الجمهور</item>
-        <item>اطفائية بلدية نابلس</item>
-        <item>النفايات</item>
-        <item>محكمة بلدية نابلس</item>
-        <item>المسلخ البلدي</item>
+        <item>الصرف الصحي</item>
+
     </string-array>
 
     <string-array name="questionsarray">

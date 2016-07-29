@@ -101,7 +101,7 @@ public class AddReportStatus extends AppCompatActivity {
         });
 
 
-        task.execute("http://10.0.2.2/addReportStatus.php");
+        task.execute("http://52.42.94.127/addReportStatus.php");
     }
 
     public void onClickEnd(View view) {
@@ -122,7 +122,7 @@ public class AddReportStatus extends AppCompatActivity {
             }
         });
 
-        task.execute("http://10.0.2.2/endReportStatus.php");
+        task.execute("http://52.42.94.127/endReportStatus.php");
     }
 
 

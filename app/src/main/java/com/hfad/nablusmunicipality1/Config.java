@@ -5,6 +5,6 @@ package com.hfad.nablusmunicipality1;
  */
 public class Config {
 
-    public static final String EMAIL = "grayllow@gmail.com";
-    public static final String PASSWORD = "YA3ARSYAZEFT";
+    public static final String EMAIL = "nablusmunicipality.water@gmail.com";
+    public static final String PASSWORD = "NablusMunicipalitykokolplp";
 }

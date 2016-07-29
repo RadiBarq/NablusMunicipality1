@@ -46,8 +46,10 @@ public class ReportStatus extends AppCompatActivity {
     private static final String TAG_RESULTS = "result";
     JSONArray peoples = null;
     ArrayList<HashMap<String, String>> personList;
-    TextView textViewDate;
+    TextView textViewEmail;
     TextView textViewId;
+    TextView textViewIdPhoneNumber;
+    TextView textViewArea;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,28 +57,19 @@ public class ReportStatus extends AppCompatActivity {
         setContentView(R.layout.activity_report_status);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        textViewDate = (TextView) findViewById(R.id.textView43);
+        textViewEmail = (TextView) findViewById(R.id.textView43);
         textViewId = (TextView) findViewById(R.id.textView41);
+        textViewIdPhoneNumber = (TextView) findViewById(R.id.textView40);
         list = (ListView) findViewById(R.id.listView);
+        textViewIdPhoneNumber = (TextView) findViewById(R.id.textView48);
+        textViewArea = (TextView) findViewById(R.id.textView46);
+
 
 
         textViewId.setText(Reports1.idNum);
-        textViewDate.setText(R9.report_date);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = new Intent(ReportStatus.this, AddReportStatus.class);
-                startActivity(intent);
-            }
-        });
-
-        if (!LoginActicity.COUNTER_NUMBER.matches("admin@gmail.com"))
-        {
-            fab.setVisibility(View.GONE);
-        }
+        textViewEmail.setText(Test.emailAdress);
+        textViewArea.setText(Test.area);
+        textViewIdPhoneNumber.setText(Test.phoneNumber);
 
         personList = new ArrayList<HashMap<String, String>>();
         getData();
@@ -105,7 +98,7 @@ public class ReportStatus extends AppCompatActivity {
             {
                 String result = null;
                 DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
-                HttpPost httppost = new HttpPost("http://10.0.2.2/android_connect/get-report-status.php");
+                HttpPost httppost = new HttpPost("http://52.42.94.127/get-report-status.php");
 
                 List<NameValuePair> nameValuePairList = new ArrayList<NameValuePair>(4);
                 nameValuePairList.add(new BasicNameValuePair("table_id", Reports1.idNum));

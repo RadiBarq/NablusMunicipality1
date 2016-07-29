@@ -92,7 +92,7 @@ public class ForgetPassword extends AppCompatActivity {
 
                 });
 
-                task.execute("http://10.0.2.2/forgetPassword.php");
+                task.execute("http://52.42.94.127/forgetPassword.php");
             }
 
         }
@@ -142,7 +142,7 @@ public class ForgetPassword extends AppCompatActivity {
                     }
                 });
 
-                task2.execute("http://10.0.2.2/forgetPassword1.php");
+                task2.execute("http://52.42.94.127/forgetPassword1.php");
 
             }
         }

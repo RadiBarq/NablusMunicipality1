@@ -18,6 +18,7 @@ import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,7 @@ import android.view.View;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -42,8 +44,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-import com.kosalgeek.genasync12.AsyncResponse;
-import com.kosalgeek.genasync12.PostResponseAsyncTask;
+
 
 import org.apache.http.util.ByteArrayBuffer;
 
@@ -75,6 +76,8 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
     private String Report_status = "1";
     String sLocation = "";
     public Button library_button;
+
+    int Checker = 0;
 
     // Those related to the spinner
     Spinner spinner;
@@ -202,7 +205,9 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             filePath = data.getData();
             try {
+
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                bitmap = Bitmap.createScaledBitmap(bitmap, 600, 320, true);
                 CHEKER = 0;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -212,6 +217,7 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
             filePath = data.getData().normalizeScheme();
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                bitmap = Bitmap.createScaledBitmap(bitmap, 600, 320, true);
                 CHEKER = 0;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -247,6 +253,9 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
 
             wakeLock.acquire();
 
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            Checker = 1;
+
             if (bitmap != null) {
 
                 uploadImage = getStringImage(bitmap);
@@ -281,7 +290,7 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
             postData.put("report_status", Report_status);
             postData.put("report_date", reportDate);
             postData.put("section", selected_item);
-            com.kosalgeek.genasync12.PostResponseAsyncTask task1 = new com.kosalgeek.genasync12.PostResponseAsyncTask(this, postData, false, new com.kosalgeek.genasync12.AsyncResponse() {
+            PostResponseAsyncTask task1 = new PostResponseAsyncTask(this, postData, true, new AsyncResponse() {
                 @Override
                 public void processFinish(String s) {
 
@@ -294,6 +303,7 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
                         save.edit().putString("description","").commit();
                         startActivity(intent);
                         wakeLock.release();
+                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         finish();
                      }
 
@@ -305,7 +315,7 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
                 }
             });
 
-            task1.execute("http://10.0.2.2/addData.php");
+            task1.execute("http://52.42.94.127/addData.php");
         }
     }
 
@@ -314,8 +324,10 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
         if (result.equals("success")) {
             Toast.makeText(this, "تم اضافة البلاغ", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this, Reports1.class);
-            finish();
             wakeLock.release();
+            Checker = 0;
+            finish();
+
         } else {
             Toast.makeText(this, "يوجد خطأ في الشبكة اعد المحاوله", Toast.LENGTH_LONG).show();
             wakeLock.release();
@@ -357,7 +369,7 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
         lastLocation = LocationServices.FusedLocationApi.getLastLocation(client);
         if(lastLocation != null)
         {
-            sLocation = String.valueOf(lastLocation.getLatitude()) + " " + String.valueOf(lastLocation.getLongitude());
+            sLocation = String.valueOf(lastLocation.getLatitude()) + "," + String.valueOf(lastLocation.getLongitude());
             Toast.makeText(Order.this, " تم اضافة موقعك", Toast.LENGTH_LONG).show();
             client.disconnect();
         }
@@ -506,5 +518,8 @@ public class Order extends AppCompatActivity implements AsyncResponse, GoogleApi
     public String getsLocation() {
         return this.sLocation;
     }
+
+
+
 
 }

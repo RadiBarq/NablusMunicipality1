@@ -21,7 +21,7 @@ public class R1 extends AppCompatActivity implements AsyncResponse {
         HashMap postData = new HashMap();
         postData.put("id", id);
         PostResponseAsyncTask task = new PostResponseAsyncTask(this, (AsyncResponse) postData);
-        task.execute("http://androdimysqlapp.azurewebsites.net/R1.php");
+        task.execute("http://52.42.94.127/R1.php");
     }
 
 

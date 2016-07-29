@@ -21,10 +21,10 @@
         android:text="رقم الخدمة"
         android:textColor="#000000"
         android:id="@+id/textView14"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/textView16"
-        android:layout_alignEnd="@+id/textView16"
-        android:layout_marginTop="37dp" />
+        android:layout_marginTop="26dp"
+        android:layout_below="@+id/textView49"
+        android:layout_alignRight="@+id/textView15"
+        android:layout_alignEnd="@+id/textView15" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -33,10 +33,10 @@
         android:text="الاسم الكامل"
         android:textColor="#000000"
         android:id="@+id/textView15"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="24dp"
         android:layout_below="@+id/textView14"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignRight="@+id/textView49"
+        android:layout_alignEnd="@+id/textView49" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -45,24 +45,12 @@
         android:text="كلمة السر"
         android:textColor="#000000"
         android:id="@+id/textView16"
-        android:layout_marginTop="38dp"
+        android:layout_marginTop="26dp"
 
-        android:layout_below="@+id/editText5"
-        android:layout_alignRight="@+id/textView15"
-        android:layout_alignEnd="@+id/textView15" />
+        android:layout_below="@+id/textView15"
+        android:layout_alignRight="@+id/textView14"
+        android:layout_alignEnd="@+id/textView14" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/editText5"
-        android:layout_alignBottom="@+id/textView15"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:backgroundTint="#000000"
-        android:layout_alignRight="@+id/editText6"
-        android:layout_alignEnd="@+id/editText6" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -72,10 +60,12 @@
         android:id="@+id/editText6"
         android:backgroundTint="#000000"
         android:maxLength="16"
+        android:textColorHint="#000000"
         android:layout_alignBottom="@+id/textView16"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColorHint="#000000" />
+        android:layout_alignLeft="@+id/editText"
+        android:layout_alignStart="@+id/editText"
+        android:layout_alignRight="@+id/textView30"
+        android:layout_alignEnd="@+id/textView30" />
 
     <Button
         android:layout_width="100dp"
@@ -86,12 +76,10 @@
         android:textColor="#000000"
         android:background="#4FC3F7"
         android:singleLine="false"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:layout_below="@+id/textView32"
-        android:layout_marginTop="20dp"
 
-        />
+        android:layout_below="@+id/textView32"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -100,13 +88,11 @@
         android:text="اعادة كلمة السر"
         android:textColor="#000000"
         android:id="@+id/textView13"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="27dp"
+        android:maxLength="16"
         android:layout_below="@+id/textView16"
         android:layout_alignRight="@+id/textView16"
-        android:layout_alignEnd="@+id/textView16"
-        android:maxLength="16"
-        android:layout_alignLeft="@+id/textView15"
-        android:layout_alignStart="@+id/textView15" />
+        android:layout_alignEnd="@+id/textView16" />
 
     <EditText
         android:layout_width="200dp"
@@ -120,8 +106,8 @@
         android:layout_alignStart="@+id/editText11"
         android:layout_alignBottom="@+id/textView13"
         android:layout_toStartOf="@+id/textView13"
-        android:layout_alignRight="@+id/editText6"
-        android:layout_alignEnd="@+id/editText6" />
+        android:layout_alignRight="@+id/textView30"
+        android:layout_alignEnd="@+id/textView30" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -139,12 +125,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="منطقة السكن في نابلس بالتفصيل"
+        android:text="منطقة السكن"
         android:id="@+id/textView31"
         android:textColor="#000000"
+        android:layout_alignBaseline="@+id/textView30"
         android:layout_alignBottom="@+id/textView30"
-        android:layout_alignLeft="@+id/textView30"
-        android:layout_alignStart="@+id/textView30" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -156,11 +143,11 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColorHint="#000000"
         android:backgroundTint = "#000000"
-        android:maxLines="3"
         android:maxLength="60"
-        android:layout_toStartOf="@+id/textView31"
-        android:layout_alignRight="@+id/editText6"
-        android:layout_alignEnd="@+id/editText6" />
+        android:layout_toStartOf="@+id/textView30"
+        android:singleLine="true"
+        android:layout_alignRight="@+id/textView30"
+        android:layout_alignEnd="@+id/textView30" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -168,13 +155,11 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="البريد الالكتروني"
         android:id="@+id/textView32"
-        android:layout_below="@+id/textView31"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="26dp"
         android:textColor="#000000"
-        android:layout_toRightOf="@+id/textView30"
-        android:layout_toEndOf="@+id/textView30" />
+        android:layout_below="@+id/textView31"
+        android:layout_alignRight="@+id/textView16"
+        android:layout_alignEnd="@+id/textView16"
+        android:layout_marginTop="23dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -186,10 +171,11 @@
         android:backgroundTint="#000000"
         android:layout_alignBottom="@+id/textView15"
         android:layout_toStartOf="@+id/textView15"
-        android:layout_alignRight="@+id/editText5"
-        android:layout_alignEnd="@+id/editText5"
         android:maxLength="30"
-        />
+        android:layout_alignRight="@+id/editText6"
+        android:layout_alignEnd="@+id/editText6"
+        android:lines="1"
+        android:singleLine="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -201,8 +187,9 @@
         android:layout_above="@+id/button3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/editText"
-        android:layout_alignEnd="@+id/editText" />
+        android:layout_toStartOf="@+id/textView30"
+        android:layout_alignRight="@+id/textView30"
+        android:layout_alignEnd="@+id/textView30" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -210,14 +197,39 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/editText14"
-        android:layout_above="@+id/editText5"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/editText5"
-        android:layout_alignEnd="@+id/editText5"
         android:backgroundTint="#000000"
         android:maxLength="30"
-        />
+        android:layout_above="@+id/textView15"
+        android:layout_alignRight="@+id/editText13"
+        android:layout_alignEnd="@+id/editText13"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="رقم الهوية"
+        android:textColor="#000000"
+        android:id="@+id/textView49"
+        android:layout_marginTop="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/textView31"
+        android:layout_alignEnd="@+id/textView31" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editText19"
+        android:backgroundTint="#000000"
+        android:maxLength="30"
+        android:layout_alignBottom="@+id/textView49"
+        android:layout_alignLeft="@+id/editText14"
+        android:layout_alignStart="@+id/editText14"
+        android:layout_toStartOf="@+id/textView13"
+        android:layout_alignRight="@+id/textView30"
+        android:layout_alignEnd="@+id/textView30" />
 
 </RelativeLayout>

@@ -28,7 +28,7 @@ public class WaterCycle extends Activity {
 
 
 
-        com.kosalgeek.genasync12.PostResponseAsyncTask task1 = new com.kosalgeek.genasync12.PostResponseAsyncTask(this, postData, false, new com.kosalgeek.genasync12.AsyncResponse() {
+        com.kosalgeek.genasync12.PostResponseAsyncTask task1 = new com.kosalgeek.genasync12.PostResponseAsyncTask(this, postData, true, new com.kosalgeek.genasync12.AsyncResponse() {
             @Override
             public void processFinish(String s) {
 
@@ -40,7 +40,7 @@ public class WaterCycle extends Activity {
             }
         });
 
-        task1.execute("http://10.0.2.2/WaterCycleLink.php");
+        task1.execute("http://52.42.94.127/WaterCycleLink.php");
     }
 
 }

@@ -82,7 +82,7 @@ public class Report extends AppCompatActivity implements AsyncResponse {
     private ProgressDialog pDialog;
     public String id;
     public static String TAG_ID = "id";
-    private static final String url_order_details = "http://10.0.2.2/getOrder.php";
+    private static final String url_order_details = "http://52.42.94.127/getOrder.php";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_GET = "get";
     private TextView textView_area;
@@ -99,8 +99,10 @@ public class Report extends AppCompatActivity implements AsyncResponse {
     Bitmap image = null;
     ImageView imageView;
     public static String image_id;
-    String hey = "http://10.0.2.2/images/";
+    String hey = "http://52.42.94.127/images/";
     String url = hey + image_id;
+
+    Button statusButton;
 
     private View mProgressView;
 
@@ -113,10 +115,12 @@ public class Report extends AppCompatActivity implements AsyncResponse {
 
         if (Checker == 1) {
             Toast.makeText(this, "تاكد من اتصال الشبكة", Toast.LENGTH_LONG);
-            Intent intent = new Intent(this, Report.class);
+            Intent intent = new Intent(this, Reports1.class);
             startActivity(intent);
             finish();
         }
+
+
 
 
         // Universal IMAGE LOADER SETUP
@@ -195,7 +199,7 @@ public class Report extends AppCompatActivity implements AsyncResponse {
                     }
                 });
 
-                task1.execute("http://10.0.2.2/android_connect/updateLikes.php");
+                task1.execute("http://52.42.94.127/updateLikes.php");
 
             }
 

@@ -70,7 +70,7 @@ public class Accounts extends AppCompatActivity {
         });
 
         postData.put("email", LoginActicity.COUNTER_NUMBER);
-        com.kosalgeek.genasync12.PostResponseAsyncTask task4 = new com.kosalgeek.genasync12.PostResponseAsyncTask(this, postData, false, new com.kosalgeek.genasync12.AsyncResponse() {
+        com.kosalgeek.genasync12.PostResponseAsyncTask task4 = new com.kosalgeek.genasync12.PostResponseAsyncTask(this, postData, true, new com.kosalgeek.genasync12.AsyncResponse() {
             @Override
             public void processFinish(String s)
             {
@@ -78,10 +78,10 @@ public class Accounts extends AppCompatActivity {
             }
         });
 
-        task.execute("http://10.0.2.2/accounts-name.php");
-        task2.execute("http://10.0.2.2/accounts-regDate.php");
-        task3.execute("http://10.0.2.2/accounts-location.php");
-        task4.execute("http://10.0.2.2/email.php");
+        task.execute("http://52.42.94.127/accounts-name.php");
+        task2.execute("http://52.42.94.127/accounts-regDate.php");
+        task3.execute("http://52.42.94.127/accounts-location.php");
+        task4.execute("http://52.42.94.127/email.php");
     }
 
     public void onClickButton(View view)
@@ -109,14 +109,20 @@ public class Accounts extends AppCompatActivity {
                 public void processFinish(String s) {
 
                     if (s.matches("success"))
+                    {
                         Toast.makeText(Accounts.this, "تم تغير كلمة السر بنجاح", Toast.LENGTH_LONG).show();
+                        editTextNewPassword.setText("");
+                        editTextOldPassword.setText("");
+                    }
 
-                    else
+
+                    else {
                         Toast.makeText(Accounts.this, "حدث خطأ ما, تاكد من كلمة السر السابقة او اتصال الشبكة", Toast.LENGTH_LONG).show();
+                    }
                 }
             });
 
-            task3.execute("http://10.0.2.2/change-password.php");
+            task3.execute("http://52.42.94.127/change-password.php");
 
         }
     }

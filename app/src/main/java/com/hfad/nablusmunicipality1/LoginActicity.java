@@ -56,7 +56,7 @@ LoginActicity extends AppCompatActivity implements AsyncResponse {
             HashMap postData = new HashMap();
             postData.put("txtUsername", buildNumber);
             postData.put("txtPassword", password);
-            com.kosalgeek.genasync12.PostResponseAsyncTask task1 = new com.kosalgeek.genasync12.PostResponseAsyncTask(this, postData, false, new com.kosalgeek.genasync12.AsyncResponse() {
+            com.kosalgeek.genasync12.PostResponseAsyncTask task1 = new com.kosalgeek.genasync12.PostResponseAsyncTask(this, postData, true, new com.kosalgeek.genasync12.AsyncResponse() {
                 @Override
                 public void processFinish(String s) {
 
@@ -71,7 +71,7 @@ LoginActicity extends AppCompatActivity implements AsyncResponse {
                 }
             });
 
-            task1.execute("http://10.0.2.2/login.php");
+            task1.execute("http://52.42.94.127/login.php");
             COUNTER_NUMBER = buildNumber;
         }
     }
