@@ -2,7 +2,7 @@
 
 <h2>About The Application</h2>
 <p>This application was developed as my first mobile app for the Municipality of Nablus to help people report water problems using their android application, 
-This application development is part of an ICMA NGO program to improve Nablus Municipality Reporting Facility, and I won the best idea to get the fund to develop the app.
+This application development is part of an ICMA NGO App2Action program to improve Nablus Municipality Reporting Facility, and I won the best idea to get the fund to develop the app.
 Notice that the application is removed from the play store after one year by the Municipality for reasons out of my responsibility or authority.
 for more information about program https://urban-links.org/wp-content/uploads/2017/04/App2Action-Guide.pdf.
 </p>
